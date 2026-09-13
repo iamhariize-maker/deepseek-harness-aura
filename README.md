@@ -2,6 +2,31 @@
 
 Aura adds a model-assigned workflow editor, reusable workflow notes, a live activity inspector, and six whole-interface theme adaptations to DeepSeek Harness.
 
+**Status:** Open-source web plugin for an existing DeepSeek Harness installation. It is not a hosted service or a model provider; you use your own Harness configuration and provider access. The source and tests are available here under MIT.
+
+## Quick start
+
+1. [Download this repository](https://github.com/iamhariize-maker/deepseek-harness-aura/archive/refs/heads/main.zip) or clone it. You need an existing DeepSeek Harness **web** profile.
+2. Copy `packages/dsh-ui-aura` from the download into your profile at `<DSH_HOME>/profiles/web/packages/dsh-ui-aura` (`DSH_HOME` defaults to `~/.dsh`).
+3. Add this entry to `<DSH_HOME>/profiles/web/cordis.patch.yml`, preserving its existing entries:
+
+   ```yaml
+   - insert:
+       - id: ui-aura
+         name: ./packages/dsh-ui-aura/lib/index.js
+   ```
+
+4. Restart the Harness web process and refresh the browser. Open **Workflow → Open Aura Studio**.
+
+For a Windows PowerShell walkthrough, verification and removal, see [Installation](docs/INSTALL.md). This repository is currently a source distribution; it is not published as an npm package or a one-command `dsh plugin add` bundle.
+
+## What Aura does
+
+- **Agent Workflow:** choose the model for each role, reorder the five stages, save a recipe per conversation, and send a native Harness workflow request. Auto-match uses the live model catalogue and task description.
+- **Jobs & Skills:** save versioned reusable notes and transfer recipes as JSON.
+- **Live inspector:** see the active agent/job lineage reported by Harness.
+- **UI Design:** apply six bundled palette adaptations across the Harness interface. These are theme palettes, not remote executable layouts.
+
 ## Use
 
 Open **Workflow → Open Aura Studio** in Harness.
@@ -21,10 +46,6 @@ The native workflow agent hook accepts provider/model overrides, but not enforce
 Automatic matching uses transparent role/task rules and model names available from Harness. The catalogue does not provide dependable live quota, route health or price data, so these recommendations cannot guarantee the cheapest working route. A disappeared or non-routable model is replaced from the current catalogue when models refresh; valid manual choices are preserved.
 
 The native tool request is orchestrator-mediated, not a new deterministic host executor. No separate host controller, autonomous learning, arbitrary DAG branching, automatic GitHub updates, or cross-browser memory sync is claimed. Local recipe storage uses the existing v1 format with backward-compatible model and memory fields. Saved notes are supplied as workflow context when you send a task.
-
-## Install
-
-Copy `packages/dsh-ui-aura` into your Harness profile's `packages` directory and add a Cordis patch row named `./packages/dsh-ui-aura/lib/index.js`. Do not overwrite existing patch entries. The package declares its web client dependencies. Refresh the web page after updating.
 
 ## Verify
 
