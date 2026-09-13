@@ -1,0 +1,13 @@
+{
+  "name": "deepseek-harness-aura",
+  "version": "1.3.1",
+  "private": true,
+  "scripts": {
+    "test": "node tests/recipe.cjs && node tests/verify-aura.cjs packages/dsh-ui-aura/lib/client.js && node tests/aura-regression.cjs packages/dsh-ui-aura/lib/client.js && node tests/workflow.cjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamhariize-maker/deepseek-harness-aura.git"
+  }
+}

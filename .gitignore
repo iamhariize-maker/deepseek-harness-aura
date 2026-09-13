@@ -1,0 +1,9 @@
+work/
+outputs/
+node_modules/
+.env
+.env.*
+*.log
+*.local
+*.zip
+docs/ASTRA_HANDOFF.md
