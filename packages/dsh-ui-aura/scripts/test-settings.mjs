@@ -1,0 +1,40 @@
+// Integration against an installed Harness; never opens the user's settings file.
+// Usage: node scripts/test-settings.mjs <installed node_modules directory>
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+import { resolve, join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { mkdtemp, writeFile, readFile } from 'node:fs/promises';
+import { UiSettings, validateUi } from '../lib/host.js';
+if (!process.argv[2]) throw Error('Supply the installed Harness node_modules directory.');
+const require = createRequire(pathToFileURL(join(resolve(process.argv[2]),'fixture.cjs')));
+const { Context } = await import(pathToFileURL(require.resolve('@deepseek-ai/cordis')));
+const { FileSettingsProvider } = await import(pathToFileURL(require.resolve('@deepseek-ai/dsh-settings-file')));
+const dir = await mkdtemp(join(tmpdir(),'aura-settings-test-'));
+const path = join(dir,'settings.yaml');
+const original = '# Preserve this comment\nunrelated:\n  example: keep-me\n';
+await writeFile(path,original);
+const ctx = new Context();
+const fiber = ctx.plugin(FileSettingsProvider,{path,watch:false});
+await fiber.await();
+const scope=ctx.settings.register('ui-aura',UiSettings,{validate:validateUi});
+assert.equal(await readFile(path,'utf8'),original); // Registering defaults does not write.
+await scope.update({skin:'tanjore-regal',glow:22});
+const persisted=await readFile(path,'utf8');
+assert.ok(persisted.includes('# Preserve this comment'));
+assert.ok(persisted.includes('example: keep-me'));
+assert.ok(persisted.includes('tanjore-regal'));
+assert.equal(scope.get().glow,22);
+await assert.rejects(()=>scope.update({glow:101}));
+assert.equal(await readFile(path,'utf8'),persisted);
+await Promise.all([scope.update({glow:23}),scope.update({glow:24}),scope.update({glow:25})]);
+assert.equal(scope.get().glow,25);
+await fiber.dispose();
+const reload=ctx.plugin(FileSettingsProvider,{path,watch:false});
+await reload.await();
+const again=ctx.settings.register('ui-aura',UiSettings,{validate:validateUi});
+assert.equal(again.get().skin,'tanjore-regal');
+assert.equal(again.get().glow,25);
+await reload.dispose();
+console.log('PASS: isolated Harness settings registration, durable writes, unrelated YAML/comment preservation, rejection rollback, rapid updates and provider restart. Fixture:',dir);

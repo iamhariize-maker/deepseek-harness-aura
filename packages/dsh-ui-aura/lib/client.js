@@ -83,8 +83,8 @@ body[data-ds-dark-theme] {
 div.aura-dock {
   position: absolute;
   right: 18px;
-  top: 64px;
-  bottom: auto;
+  top: auto;
+  bottom: 176px;
   width: 340px;
   max-width: calc(100vw - 36px);
   max-height: calc(100vh - 140px);
@@ -421,11 +421,11 @@ div.aura-dock { font-family: "Segoe UI", sans-serif; box-sizing: border-box; }
 .aura-studio-backdrop { position: fixed; inset: 0; z-index: 10000; background: rgba(5,9,18,.66); display: grid; place-items: center; padding: 18px; pointer-events: auto; }
 .aura-studio { width: min(1180px, 100%); max-height: min(780px, calc(100dvh - 36px)); overflow: hidden; display: flex; flex-direction: column; border-radius: 18px; border: 1px solid var(--dsw-alias-border-l1); background: var(--dsw-specific-menu, var(--dsw-alias-bg-module-platform)); color: var(--dsw-alias-label-primary); box-shadow: 0 24px 70px rgba(0,0,0,.35); font: 13px/1.4 "Segoe UI", sans-serif; }
 .aura-studio * { box-sizing: border-box; }
-.aura-studio__head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--dsw-alias-border-l2); }
+.aura-studio__head { display: flex; flex-shrink:0; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--dsw-alias-border-l2); }
 .aura-studio__title { flex: 1; min-width: 0; }
 .aura-studio__title strong { display: block; font-size: 19px; letter-spacing: -.02em; }
 .aura-studio__title small { display: block; color: var(--dsw-alias-label-tertiary); font-size: 11px; }
-.aura-studio__tabs { display: flex; gap: 4px; padding: 8px 16px 0; border-bottom: 1px solid var(--dsw-alias-border-l2); }
+.aura-studio__tabs { display: flex; flex-shrink:0; gap: 4px; padding: 8px 16px 0; border-bottom: 1px solid var(--dsw-alias-border-l2); }
 .aura-studio__tabs button { border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--dsw-alias-label-secondary); padding: 9px 12px; font: inherit; cursor: pointer; }
 .aura-studio__tabs button[aria-selected="true"] { color: var(--aura-accent); border-bottom-color: var(--aura-accent); font-weight: 700; }
 .aura-studio__body { overflow: auto; padding: 18px 20px 22px; min-height: 0; }
@@ -439,7 +439,7 @@ div.aura-dock { font-family: "Segoe UI", sans-serif; box-sizing: border-box; }
 .aura-studio__button:hover { border-color: var(--aura-accent); }
 .aura-studio__button:disabled { opacity: .45; cursor: not-allowed; }
 .aura-studio__button--primary { background: var(--aura-accent); border-color: var(--aura-accent); color: #fff; font-weight: 700; }
-.aura-studio__muted { color: var(--dsw-alias-label-tertiary); font-size: 11.5px; }
+.aura-studio__muted { color: var(--dsw-alias-label-secondary); font-size: 12px; max-width:80ch; line-height:1.55; }
 .aura-studio__notice { padding: 10px 12px; border-radius: 9px; border: 1px solid color-mix(in srgb, var(--aura-accent) 35%, transparent); background: color-mix(in srgb, var(--aura-accent) 9%, transparent); margin: 0 0 14px; }
 .aura-studio__notice--error { border-color: var(--aura-err); background: color-mix(in srgb, var(--aura-err) 10%, transparent); }
 .aura-graph { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding: 8px 2px 16px; }
@@ -465,8 +465,52 @@ div.aura-dock { font-family: "Segoe UI", sans-serif; box-sizing: border-box; }
 .aura-theme-card { text-align: left; border: 2px solid transparent; border-radius: 12px; padding: 9px; background: var(--aura-node-bg); color: var(--dsw-alias-label-primary); }
 .aura-theme-card[aria-pressed="true"] { border-color: var(--aura-accent); }
 .aura-theme-swatch { display: block; height: 78px; border-radius: 8px; margin-bottom: 8px; }
+
+/* -------------------- Artisan Studio / visual engine -------------------- */
+.aura-studio { width:min(1320px,100%); border-radius:var(--aura-arch,18px); }
+.aura-studio__head { background:linear-gradient(100deg,color-mix(in srgb,var(--aura-accent) 11%,transparent),transparent 44%); }
+.aura-studio__tabs { overflow-x:auto; }
+.aura-studio__tabs button { white-space:nowrap; }
+.aura-studio__body { position:relative; isolation:isolate; background:linear-gradient(145deg,color-mix(in srgb,var(--aura-accent-2) 4%,transparent),transparent 42%); }
+.aura-graph { position:relative; padding:22px 8px 24px; border:1px solid color-mix(in srgb,var(--aura-accent) 28%,var(--dsw-alias-border-l1)); border-radius:var(--aura-arch,16px); background:color-mix(in srgb,var(--aura-accent) 3%,var(--aura-node-bg)); isolation:isolate; }
+.aura-graph::before { content:""; position:absolute; inset:0; pointer-events:none; z-index:-1; opacity:.38; background-image:linear-gradient(color-mix(in srgb,var(--aura-accent) 16%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--aura-accent) 16%,transparent) 1px,transparent 1px); background-size:24px 24px; mask-image:linear-gradient(to bottom,black,transparent); }
+.aura-graph__node { position:relative; min-height:132px; border-radius:calc(var(--aura-arch,16px) - 4px); box-shadow:0 8px 30px color-mix(in srgb,var(--aura-accent-2) calc(var(--aura-glow,55) * .15%),transparent); }
+.aura-graph__node::before { content:""; position:absolute; width:9px; height:9px; right:10px; top:10px; border-radius:50%; background:var(--aura-accent-2); box-shadow:0 0 calc(var(--aura-glow,55) * .22px) var(--aura-accent-2); }
+.aura-graph__connector { display:grid; place-items:center; font-size:0; position:relative; }
+.aura-graph__connector::before { content:""; width:100%; border-top:var(--aura-border-weight,2px) solid var(--aura-accent); opacity:.72; }
+.aura-graph__connector::after { content:"›"; font-size:22px; position:absolute; right:0; color:var(--aura-accent); }
+.aura-role-editor { grid-template-columns:150px minmax(220px,2fr) minmax(145px,1fr); padding:14px; border:1px solid var(--dsw-alias-border-l2); border-radius:var(--aura-arch,12px); background:color-mix(in srgb,var(--aura-accent) 4%,var(--aura-node-bg)); }
+.aura-role-editor__controls { display:grid; gap:8px; }
+.aura-effort { display:grid; grid-template-columns:auto 1fr auto; gap:8px; align-items:center; min-width:0; }
+.aura-effort input { width:100%; min-height:auto; accent-color:var(--aura-accent); }
+.aura-effort output { min-width:52px; font-size:11px; color:var(--aura-accent); font-weight:700; }
+.aura-stage-adder,.aura-file-shelf,.aura-visual-controls { border:1px dashed color-mix(in srgb,var(--aura-accent) 46%,var(--dsw-alias-border-l1)); border-radius:var(--aura-arch,12px); padding:14px; margin-top:16px; background:color-mix(in srgb,var(--aura-accent) 5%,transparent); }
+.aura-stage-adder h3,.aura-file-shelf h3,.aura-visual-controls h3 { margin:0 0 6px; font-size:14px; }
+.aura-stage-adder__form { display:grid; grid-template-columns:minmax(170px,1fr) minmax(170px,1fr) auto; gap:8px; align-items:end; }
+.aura-file-shelf__drop { min-height:84px; padding:14px; display:grid; place-items:center; text-align:center; border:1px dashed color-mix(in srgb,var(--aura-accent-2) 56%,var(--dsw-alias-border-l1)); border-radius:calc(var(--aura-arch,12px) - 3px); color:var(--dsw-alias-label-secondary); background:var(--aura-node-bg); }
+.aura-file-shelf__drop[data-dragging="true"] { border-style:solid; background:color-mix(in srgb,var(--aura-accent-2) 12%,var(--aura-node-bg)); color:var(--aura-accent-2); }
+.aura-file-card { display:grid; grid-template-columns:minmax(150px,1fr) auto; gap:10px; align-items:start; padding:11px 0; border-bottom:1px solid var(--dsw-alias-border-l2); }
+.aura-file-card:last-child { border-bottom:0; }
+.aura-file-card__readers { grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:5px 10px; font-size:11px; }
+.aura-file-card__readers label { white-space:nowrap; }
+.aura-visual-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.aura-visual-grid label { display:grid; gap:5px; color:var(--dsw-alias-label-secondary); font-size:12px; }
+.aura-visual-grid input[type="range"] { padding:0; accent-color:var(--aura-accent); }
+.aura-backdrop-preview { position:relative; min-height:92px; overflow:hidden; border:1px solid var(--dsw-alias-border-l2); border-radius:var(--aura-arch,12px); background:var(--aura-node-bg); }
+.aura-backdrop-preview::before { content:""; position:absolute; inset:0; opacity:var(--aura-backdrop-opacity,.08); filter:blur(var(--aura-backdrop-blur,0)); background-image:var(--aura-custom-backdrop); background-size:cover; background-position:center; }
+body[data-aura-backdrop="sun-grid"] .aura-backdrop-preview::before { background-image:linear-gradient(#ff007f 1px,transparent 1px),linear-gradient(90deg,#00f0ff 1px,transparent 1px),radial-gradient(circle at 50% -12%,#ffbd3f 0 26%,transparent 27%); background-size:18px 18px,18px 18px,100% 100%; }
+body[data-aura-backdrop="jali"] .aura-backdrop-preview::before { background-image:radial-gradient(circle at 50% 0,transparent 32%,#0d5c75 33% 36%,transparent 37%),linear-gradient(45deg,transparent 46%,#eaa221 47% 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#eaa221 47% 53%,transparent 54%); background-size:28px 28px; }
+body[data-aura-backdrop="peacock"] .aura-backdrop-preview::before { background-image:radial-gradient(ellipse at center,#eaa221 0 14%,#0d5c75 15% 31%,transparent 32%),radial-gradient(ellipse at center,#b84a39 0 15%,transparent 16%); background-size:42px 42px,84px 84px; }
+body[data-aura-skin="vaporwave-sunset"] .aura-studio { box-shadow:0 0 calc(var(--aura-glow,55) * .72px) rgba(255,0,127,.32),0 24px 70px rgba(0,0,0,.4); }
+body[data-aura-skin="vaporwave-sunset"] .aura-studio__body { background-image:linear-gradient(145deg,rgba(255,0,127,.05),transparent 42%); }
+body[data-aura-skin="vaporwave-sunset"] .aura-graph::before { opacity:.7; transform:perspective(440px) rotateX(52deg) scale(1.45) translateY(30%); transform-origin:center bottom; mask-image:none; }
+body[data-aura-skin="vaporwave-sunset"] .aura-graph__node { box-shadow:0 0 calc(var(--aura-glow,55) * .12px) rgba(0,240,255,.12); }
+body[data-aura-skin="tanjore-regal"] .aura-studio,body[data-aura-skin="tanjore-regal"] .aura-role-editor,body[data-aura-skin="tanjore-regal"] .aura-file-shelf { border-image:linear-gradient(135deg,#ecc94b,#d69e2e,#b7791f,#ecc94b) 1; }
+body[data-aura-skin="tanjore-regal"] .aura-studio__head { background:linear-gradient(105deg,rgba(234,162,33,.18),rgba(13,92,117,.08) 55%,transparent); }
+body[data-aura-skin="tanjore-regal"] .aura-studio__body::before { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:var(--aura-lattice-opacity,.08); background-image:radial-gradient(circle at 50% 0,transparent 34%,#eaa221 35% 38%,transparent 39%),linear-gradient(45deg,transparent 46%,#0d5c75 47% 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#0d5c75 47% 53%,transparent 54%); background-size:38px 38px; }
+@media (max-width: 760px) { .aura-stage-adder__form,.aura-visual-grid { grid-template-columns:1fr; } .aura-role-editor { grid-template-columns:1fr; } .aura-file-card { grid-template-columns:1fr; } }
 @media (max-width: 600px) {
-  div.aura-dock { right: 10px; top: 58px; max-width: calc(100vw - 20px); max-height: calc(100dvh - 250px); }
+  div.aura-dock { right: 10px; top: auto; bottom: 158px; max-width: calc(100vw - 20px); max-height: calc(100dvh - 250px); }
   .aura-panel__body { max-height: 24vh; }
   .aura-studio-backdrop { padding: 4px; }
   .aura-studio { max-height: calc(100dvh - 8px); border-radius: 10px; }
@@ -476,6 +520,28 @@ div.aura-dock { font-family: "Segoe UI", sans-serif; box-sizing: border-box; }
   .aura-theme-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 
+.aura-source-dock { border: 1px dashed var(--aura-accent); border-radius: 16px; padding: 18px; margin-block: 12px; background: var(--dsw-alias-bg-layer-1); }
+body[data-aura-backdrop]:not([data-aura-backdrop="none"]) [data-conversation-scroll] { position:relative; isolation:isolate; }
+body[data-aura-backdrop]:not([data-aura-backdrop="none"]) [data-conversation-scroll]::before { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:var(--aura-backdrop-opacity,.08); filter:blur(var(--aura-backdrop-blur,0)); background-image:var(--aura-custom-backdrop); background-size:cover; background-position:center; }
+body[data-aura-backdrop="sun-grid"] [data-conversation-scroll]::before { background-image:linear-gradient(#ff007f 1px,transparent 1px),linear-gradient(90deg,#00f0ff 1px,transparent 1px),radial-gradient(circle at 50% -12%,#ffbd3f 0 26%,transparent 27%); background-size:18px 18px,18px 18px,100% 100%; }
+body[data-aura-backdrop="jali"] [data-conversation-scroll]::before { background-image:radial-gradient(circle at 50% 0,transparent 32%,#0d5c75 33% 36%,transparent 37%),linear-gradient(45deg,transparent 46%,#eaa221 47% 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,#eaa221 47% 53%,transparent 54%); background-size:28px 28px; }
+body[data-aura-backdrop="peacock"] [data-conversation-scroll]::before { background-image:radial-gradient(ellipse at center,#eaa221 0 14%,#0d5c75 15% 31%,transparent 32%),radial-gradient(ellipse at center,#b84a39 0 15%,transparent 16%); background-size:42px 42px,84px 84px; }
+body[data-aura-skin="vaporwave-sunset"] [data-state="running"] { box-shadow:0 0 calc(var(--aura-glow,55) * .15px) #ff007f30; }
+body[data-aura-skin="tanjore-regal"] [data-composer-card] { border:var(--aura-border-weight,2px) solid #b7791f; border-radius:var(--aura-arch,16px); }
+.aura-source-row { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--dsw-alias-border-l2); padding-block: 12px; }
+.aura-source-row > div { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.aura-source-row small { display: block; margin-top: 4px; color: var(--dsw-alias-label-secondary); }
+.aura-source-row button { flex-shrink: 0; }
+.aura-ports { display:flex; justify-content:space-between; gap:8px; margin-block:10px 4px; }
+.aura-ports button { border:1px solid var(--aura-accent); border-radius:16px; padding:5px 9px; background:var(--dsw-alias-bg-layer-1); color:var(--dsw-alias-label-primary); cursor:crosshair; font:inherit; }
+.aura-ports button[aria-pressed="true"] { background:var(--aura-accent); color:var(--dsw-alias-bg-base); }
+.aura-provider-cards { display:flex; flex-wrap:wrap; gap:6px; grid-column:1/-1; }
+.aura-provider-cards button { border:1px solid var(--dsw-alias-border-l2); border-radius:8px; background:var(--dsw-alias-bg-layer-1); color:var(--dsw-alias-label-secondary); font:inherit; padding:7px 10px; cursor:pointer; }
+.aura-provider-cards button[aria-pressed="true"] { border-color:var(--aura-accent); color:var(--dsw-alias-label-primary); box-shadow:inset 0 -2px var(--aura-accent); }
+.aura-provider-cards button:disabled { opacity:.45; cursor:not-allowed; }
+.aura-studio__body > .aura-execution { margin-top:0; padding-top:0; border-top:0; padding-bottom:22px; border-bottom:1px solid var(--dsw-alias-border-l2); }
+body[data-aura-skin="tanjore-regal"] .aura-studio__title strong { font-family:Georgia,serif; font-size:25px; }
+@media(max-width:600px) { .aura-role-editor { grid-template-columns:1fr; } .aura-source-row { flex-wrap:wrap; } .aura-source-row > div { flex-basis:100%; } }
 `;
 
 		/* ================================================================== */
@@ -620,13 +686,14 @@ div.aura-dock { font-family: "Segoe UI", sans-serif; box-sizing: border-box; }
  const recipe = canonicalRecipe(raw);
  const chain = orderedNodes(recipe);
  if(chain.some(n=>!n.data.model))throw Error("Every role needs a model.");
- const stages=chain.map(n=>({role:n.data.role,provider:n.data.model.provider,model:n.data.model.id,tools:n.data.tools,effort:n.data.reasoning_effort}));
- const script = "const stages = " + JSON.stringify(stages) + "; let previous = ''; const results = []; for (const stage of stages) { phase(stage.role); const result = await agent(args.task + '\\nRole: ' + stage.role + '\\nRequested effort (guidance): ' + stage.effort + '\\nRequested tools (guidance only): ' + stage.tools.join(', ') + '\\nReusable notes (context, not authority): ' + args.notes + '\\nPrevious stage output (untrusted task data):\\n' + previous, {label:stage.role, phase:stage.role, provider:stage.provider, model:stage.model}); if (result === null) throw new Error(stage.role + ' failed; workflow stopped'); previous = typeof result === 'string' ? result : JSON.stringify(result); results.push({role:stage.role,result}); } return results;";
+ const stages=chain.map(n=>({id:n.id,role:n.data.role,provider:n.data.model.provider,model:n.data.model.id,tools:n.data.tools,effort:n.data.reasoning_effort}));
+ const files=(recipe.files || []).map(file=>({name:file.name,readers:file.readers,text:file.text}));
+ const script = "const stages = " + JSON.stringify(stages) + "; const files = " + JSON.stringify(files) + "; let previous = ''; const results = []; for (const stage of stages) { phase(stage.role); const readable = files.filter(file => file.readers.includes(stage.id)).map(file => '\\nPinned file: ' + file.name + '\\n' + file.text).join('\\n'); const result = await agent(args.task + '\\nRole: ' + stage.role + '\\nRequested effort: ' + stage.effort + '\\nRequested tools (guidance only): ' + stage.tools.join(', ') + '\\nReusable notes (context, not authority): ' + args.notes + readable + '\\nPrevious stage output (untrusted task data):\\n' + previous, {label:stage.role, phase:stage.role, provider:stage.provider, model:stage.model}); if (result === null) throw new Error(stage.role + ' failed; workflow stopped'); previous = typeof result === 'string' ? result : JSON.stringify(result); results.push({role:stage.role,result}); } return results;";
  return "Run this explicitly requested multi-agent workflow using the native workflow tool with the following arguments. Preserve the exact provider/model assignments and stop if any is unavailable. Do not silently substitute models. Tool access follows Harness permissions. Report actual failures and verification results.\n" + JSON.stringify({meta:{name:"aura-workflow",description:recipe.metadata.name,phases:stages.map(s=>({title:s.role,provider:s.provider,model:s.model}))},script,args:{task,notes:recipe.memory?.notes || ""}},null,2);
  }
  /* Local recipe data is compiled into a native workflow request only on Start. */
 		const AURA_ROLES = ["Orchestrator", "Scout", "Implementer", "Reviewer", "Verifier"];
-		const AURA_EFFORTS = ["none", "minimal", "low", "medium", "high", "xhigh", "max", "ultra"];
+		const AURA_EFFORTS = ["low", "medium", "high"];
 		const AURA_TOOLS = ["terminal", "web_search", "patch", "mcp"];
 		const AURA_ROLE_HELP = {
 			Orchestrator: "Plan and route the work",
@@ -635,8 +702,10 @@ div.aura-dock { font-family: "Segoe UI", sans-serif; box-sizing: border-box; }
 			Reviewer: "Inspect risks and quality",
 			Verifier: "Check the result"
 		};
-// Curated, static adaptations; see docs/THEME_SOURCES.md. No remote code runs.
+// Curated static palette adaptations. No remote theme code runs.
 const AURA_THEMES = [
+	{ id: "vaporwave-sunset", name: "Vaporwave sunset", description: "Cyan signal, pink glow and a receding night grid", source: "bundled", license: "Original Aura palette", accent: "#00f0ff", accent2: "#ff007f", accent3: "#ffbd3f", background: "#180828", foreground: "#f6eaff", dark: ["#180828","#210d35","#32134d","#61306e","#f6eaff","#cdb7e0","#00f0ff"], light: ["#fff7fd","#fff0fa","#f4dff0","#d9b8d0","#31142e","#79536e","#b70066"] },
+	{ id: "tanjore-regal", name: "Tanjore regal", description: "Turmeric, peacock and gilt line work with a quiet jali field", source: "bundled", license: "Original Aura palette", accent: "#EAA221", accent2: "#0D5C75", accent3: "#B84A39", background: "#1c2620", foreground: "#fff4cf", dark: ["#1c2620","#243329","#344432","#6a633b","#fff4cf","#d7c68c","#EAA221"], light: ["#fff8e8","#fff1d0","#f5e2af","#cfb36a","#2d3123","#6a644f","#966000"] },
   { id: "primer", name: "Primer", description: "Crisp GitHub surfaces and blue focus", source: "https://github.com/primer/primitives", license: "MIT", accent: "#58a6ff", accent2: "#3fb950", accent3: "#bc8cff", background: "#0d1117", foreground: "#e6edf3", dark: ["#0d1117","#161b22","#21262d","#30363d","#e6edf3","#b1bac4","#58a6ff"], light: ["#ffffff","#f6f8fa","#eaeef2","#d0d7de","#1f2328","#59636e","#0969da"] },
   { id: "catppuccin", name: "Catppuccin", description: "Soft Mocha nights and Latte days", source: "https://github.com/catppuccin/catppuccin", license: "MIT", accent: "#cba6f7", accent2: "#89dceb", accent3: "#f5c2e7", background: "#1e1e2e", foreground: "#cdd6f4", dark: ["#1e1e2e","#181825","#313244","#45475a","#cdd6f4","#bac2de","#cba6f7"], light: ["#eff1f5","#e6e9ef","#dce0e8","#bcc0cc","#4c4f69","#5c5f77","#8839ef"] },
   { id: "nord", name: "Nord", description: "Quiet arctic blues for focused work", source: "https://github.com/nordtheme/nord", license: "MIT", accent: "#88c0d0", accent2: "#a3be8c", accent3: "#b48ead", background: "#2e3440", foreground: "#eceff4", dark: ["#2e3440","#3b4252","#434c5e","#4c566a","#eceff4","#d8dee9","#88c0d0"], light: ["#eceff4","#e5e9f0","#d8dee9","#b5bdcb","#2e3440","#434c5e","#365f79"] },
@@ -676,6 +745,15 @@ function applyTheme(id, runtime) {
   const theme = resolveAuraTheme(id);
   const dispose = runtime?.overrideTokens?.("dsh-ui-aura", auraThemeTokens(theme));
   const body = typeof document === "undefined" ? null : document.body;
+  if (body) {
+    const tag = document.querySelector('style[data-aura-palette]') ?? document.createElement('style');
+    tag.dataset.auraPalette = 'true';
+    const tokens = auraThemeTokens(theme);
+    const rule = mode => Object.entries(tokens).map(([key,value])=>`${key}:${value[mode]}`).join(';');
+    tag.textContent = `body[data-aura-skin]:not([data-ds-dark-theme]){${rule('light')}}body[data-aura-skin][data-ds-dark-theme]{${rule('dark')}}`;
+    if (!tag.isConnected) document.head.appendChild(tag);
+  }
+  if (body) body.dataset.auraSkin = theme.id;
   const values = { "--aura-accent": theme.accent, "--aura-accent-2": theme.accent2, "--aura-accent-3": theme.accent3 };
   const previous = {};
   if (body) Object.entries(values).forEach(([key, value]) => { previous[key] = body.style.getPropertyValue(key); body.style.setProperty(key, value); });
@@ -688,11 +766,34 @@ function applyTheme(id, runtime) {
   };
 }
 
+		function defaultVisualSettings() {
+			return { backdrop: "none", backdropSvg: "", opacity: 8, blur: 0, glow: 55, border: 2, arch: 16, lattice: 8 };
+		}
+		function readVisualSettings() {
+			try { return { ...defaultVisualSettings(), ...(auraSettingsScope?.getSnapshot().value ?? window.__AURA_BOOT__ ?? JSON.parse(window.localStorage.getItem("dsh.aura.ui.v2") || "{}")) }; }
+			catch (_) { return defaultVisualSettings(); }
+		}
+		function applyVisualSettings(settings) {
+			if (typeof document === "undefined") return;
+			const root = document.documentElement;
+			const body = document.body;
+			const clean = { ...defaultVisualSettings(), ...settings };
+			root.style.setProperty("--aura-glow", String(Math.max(0, Math.min(100, Number(clean.glow)))));
+			root.style.setProperty("--aura-border-weight", `${Math.max(0, Math.min(8, Number(clean.border)))}px`);
+			root.style.setProperty("--aura-arch", `${Math.max(0, Math.min(48, Number(clean.arch)))}px`);
+			root.style.setProperty("--aura-lattice-opacity", String(Math.max(0, Math.min(30, Number(clean.lattice))) / 100));
+			root.style.setProperty("--aura-backdrop-opacity", String(Math.max(0, Math.min(25, Number(clean.opacity))) / 100));
+			root.style.setProperty("--aura-backdrop-blur", `${Math.max(0, Math.min(24, Number(clean.blur)))}px`);
+			body.dataset.auraBackdrop = clean.backdrop || "none";
+			if (clean.backdropSvg) root.style.setProperty("--aura-custom-backdrop", `url('${clean.backdropSvg.replace(/'/g, "%27")}')`);
+			else root.style.removeProperty("--aura-custom-backdrop");
+		}
+
 		function defaultRecipe() {
 			const efforts = ["high", "medium", "medium", "high", "medium"];
 			const tools = [[], ["web_search"], ["terminal", "patch"], [], []];
 			return {
-				version: 1,
+			version: 2,
 				metadata: { name: "New workflow", kys_status: "pending", role_distribution: [...AURA_ROLES] },
 				nodes: AURA_ROLES.map((role, i) => ({ id: `role-${role.toLowerCase()}`, type: "agent_node", data: { role, reasoning_effort: efforts[i], tools: tools[i] } })),
 				edges: AURA_ROLES.slice(1).map((role, i) => ({ source: `role-${AURA_ROLES[i].toLowerCase()}`, target: `role-${role.toLowerCase()}` })),
@@ -704,23 +805,23 @@ function applyTheme(id, runtime) {
 			const errors = [];
 			const warnings = [];
 			if (!value || typeof value !== "object" || Array.isArray(value)) return { errors: ["Recipe must be an object."], warnings };
-			if (value.version !== 1) errors.push("Only recipe version 1 is supported.");
+			if (![1, 2].includes(value.version)) errors.push("Only recipe versions 1 and 2 are supported.");
 			if (typeof value.metadata?.name !== "string" || !value.metadata.name.trim() || value.metadata.name.length > 80) errors.push("Name must be 1–80 characters.");
-			if (!Array.isArray(value.nodes) || value.nodes.length !== 5) errors.push("Recipe must contain exactly five role nodes.");
-			if (!Array.isArray(value.edges) || value.edges.length !== 4) errors.push("Recipe must contain four links.");
+			if (!Array.isArray(value.nodes) || value.nodes.length < 5 || value.nodes.length > 12) errors.push("Recipe must contain five to twelve stages.");
+			if (!Array.isArray(value.edges) || value.edges.length !== Math.max(0, (value.nodes?.length || 0) - 1)) errors.push("A pipeline needs one link between each adjacent stage.");
 			const ids = new Set();
 			const roles = new Set();
 			for (const node of (Array.isArray(value.nodes) ? value.nodes : [])) {
 				if (!node || typeof node.id !== "string" || !/^[a-zA-Z0-9_-]{1,60}$/.test(node.id) || ids.has(node.id)) errors.push("Node IDs must be unique, short, and safe.");
 				else ids.add(node.id);
-				if (node?.type !== "agent_node" || !AURA_ROLES.includes(node?.data?.role) || roles.has(node.data.role)) errors.push("Each required agent role must appear once.");
+				if (node?.type !== "agent_node" || typeof node?.data?.role !== "string" || !node.data.role.trim() || node.data.role.length > 60 || roles.has(node.data.role)) errors.push("Each stage needs one unique, short name.");
 				else roles.add(node.data.role);
 				if (node?.data?.model && (typeof node.data.model.provider !== "string" || typeof node.data.model.id !== "string" || !node.data.model.provider.trim() || !node.data.model.id.trim() || node.data.model.provider.length > 200 || node.data.model.id.length > 300)) errors.push("Model assignment requires a valid provider and model ID.");
 				if (node?.data?.model_source != null && !["auto", "manual"].includes(node.data.model_source)) errors.push("Model selection source must be auto or manual.");
 				if (!AURA_EFFORTS.includes(node?.data?.reasoning_effort)) errors.push("Each node needs a valid reasoning level.");
 				if (!Array.isArray(node?.data?.tools) || node.data.tools.some(tool => !AURA_TOOLS.includes(tool)) || new Set(node.data.tools).size !== node.data.tools.length) errors.push("Node tools must use the allowed list without duplicates.");
 			}
-			if (roles.size !== 5) errors.push("All five roles are required.");
+			if (AURA_ROLES.some(role => !roles.has(role))) errors.push("Orchestrator, Scout, Implementer, Reviewer and Verifier are required.");
 			const adjacency = new Map([...ids].map(id => [id, []]));
 			const edgeKeys = new Set();
 			for (const edge of (Array.isArray(value.edges) ? value.edges : [])) {
@@ -732,33 +833,48 @@ function applyTheme(id, runtime) {
 			const visiting = new Set(), visited = new Set();
 				function walk(id) { if (visiting.has(id)) return true; if (visited.has(id)) return false; visiting.add(id); for (const next of adjacency.get(id) ?? []) if (walk(next)) return true; visiting.delete(id); visited.add(id); return false; }
 			for (const id of ids) if (walk(id)) { errors.push("Workflow contains a cycle."); break; }
-			if (ids.size === 5 && Array.isArray(value.edges) && value.edges.length === 4) {
+			if (ids.size >= 5 && Array.isArray(value.edges) && value.edges.length === ids.size - 1) {
 				const incoming = new Map([...ids].map(id => [id, 0]));
 				for (const edge of value.edges) if (ids.has(edge?.target) && ids.has(edge?.source)) incoming.set(edge.target, incoming.get(edge.target) + 1);
 				const starts = [...ids].filter(id => incoming.get(id) === 0);
 				let cursor = starts[0], visitedChain = new Set();
 				while (cursor && !visitedChain.has(cursor)) { visitedChain.add(cursor); cursor = adjacency.get(cursor)?.[0]; }
-				if (starts.length !== 1 || [...incoming.values()].some(n => n > 1) || [...adjacency.values()].some(a => a.length > 1) || visitedChain.size !== 5) errors.push("Version 1 editor requires one connected five-role chain.");
+				if (starts.length !== 1 || [...incoming.values()].some(n => n > 1) || [...adjacency.values()].some(a => a.length > 1) || visitedChain.size !== ids.size) errors.push("The editor requires one connected pipeline chain.");
 			}
 			if (value.privacy_rules?.redaction_level !== "strict") errors.push("Strict redaction is required for recipe drafts.");
 			if (value.privacy_rules?.zdr_enabled === true) warnings.push("ZDR is requested in this file but cannot be verified by this editor.");
 			const estimate = value.estimate?.input_tokens;
+            if (value.files !== undefined && (!Array.isArray(value.files) || value.files.length > 8)) errors.push("Use at most eight recipe snippets.");
+            const fileIds = new Set();
+            for (const file of Array.isArray(value.files) ? value.files : []) {
+                if (!file || typeof file.id !== "string" || !/^[a-zA-Z0-9_-]{1,60}$/.test(file.id) || fileIds.has(file.id)) errors.push("Snippet IDs must be unique and safe.");
+                fileIds.add(file?.id);
+                if (typeof file?.text !== "string" || new TextEncoder().encode(file.text).length > 32768 || file.text.includes('\u0000')) errors.push("Each snippet must contain at most 32 KB of text, without binary data.");
+                if (typeof file?.name !== "string" || !file.name || file.name.length > 120 || !Number.isSafeInteger(file?.size) || file.size < 0 || file.size > 32768) errors.push("Invalid snippet name or byte size.");
+                if (!Array.isArray(file?.readers) || file.readers.some(id => !ids.has(id))) errors.push("Snippet context stages must exist in the pipeline.");
+            }
 			if (estimate != null && (!Number.isSafeInteger(estimate) || estimate < 0)) errors.push("Estimated input tokens must be a non-negative integer.");
 			if (estimate == null) warnings.push("No token estimate entered; cost cannot be projected.");
-			else if (estimate >= 272000) warnings.push("Research brief flags 272K input tokens as a possible pricing boundary. Verify against the selected provider.");
+			else if (estimate >= 100000) warnings.push("Large context estimate: check the selected model's context limit and current provider pricing.");
 			return { errors: [...new Set(errors)], warnings };
 		}
 		function canonicalRecipe(raw) {
-			const review = validateRecipe(raw);
+			const source = raw?.version === 1 ? {
+				...raw,
+				version: 2,
+				nodes: Array.isArray(raw.nodes) ? raw.nodes.map(node => ({ ...node, data: { ...node.data, reasoning_effort: ["none", "minimal"].includes(node?.data?.reasoning_effort) ? "low" : ["xhigh", "max", "ultra"].includes(node?.data?.reasoning_effort) ? "high" : node?.data?.reasoning_effort } })) : raw.nodes
+			} : raw;
+			const review = validateRecipe(source);
 			if (review.errors.length) throw new Error(review.errors.join(" "));
 			return {
-				version: 1,
-				metadata: { name: raw.metadata.name.trim(), kys_status: "pending", role_distribution: raw.nodes.map(n => n.data.role) },
-				nodes: raw.nodes.map(n => ({ id: n.id, type: "agent_node", data: { role: n.data.role, reasoning_effort: n.data.reasoning_effort, tools: [...n.data.tools], ...(n.data.model ? { model: { provider: n.data.model.provider, id: n.data.model.id }, model_source: n.data.model_source === "auto" ? "auto" : "manual" } : {}) } })),
-				edges: raw.edges.map(e => ({ source: e.source, target: e.target })),
+				version: 2,
+				metadata: { name: source.metadata.name.trim(), kys_status: "pending", role_distribution: source.nodes.map(n => n.data.role) },
+				nodes: source.nodes.map(n => ({ id: n.id, type: "agent_node", data: { role: n.data.role, reasoning_effort: n.data.reasoning_effort, tools: [...n.data.tools], ...(n.data.model ? { model: { provider: n.data.model.provider, id: n.data.model.id }, model_source: n.data.model_source === "auto" ? "auto" : "manual" } : {}) } })),
+				edges: source.edges.map(e => ({ source: e.source, target: e.target })),
 				privacy_rules: { zdr_enabled: false, redaction_level: "strict" },
 				estimate: { input_tokens: raw.estimate?.input_tokens ?? null },
- memory: { notes: String(raw.memory?.notes ?? "").slice(0, 8000) }
+ memory: { notes: String(source.memory?.notes ?? "").slice(0, 8000) },
+ files: Array.isArray(source.files) ? source.files.slice(0, 8).map(file => ({ id: String(file?.id || ""), name: String(file?.name || "").slice(0, 120), type: String(file?.type || "").slice(0, 120), size: Number(file?.size || 0), text: String(file?.text || "").slice(0, 32768), readers: Array.isArray(file?.readers) ? file.readers.filter(id => source.nodes.some(node => node.id === id)) : [] })).filter(file => /^[a-zA-Z0-9_-]{1,60}$/.test(file.id) && file.name && file.size >= 0) : []
 			};
 		}
 		function recipeKey(sessionId) { return `dsh.aura.recipe.v1.${String(sessionId ?? "new")}`; }
@@ -773,6 +889,13 @@ function applyTheme(id, runtime) {
 			} catch (_) { return []; }
 		}
 		function replaceChain(nodes) { return nodes.slice(1).map((node, i) => ({ source: nodes[i].id, target: node.id })); }
+        function connectPipeline(recipe, source, target) {
+            if(source === target || !recipe.nodes.some(n=>n.id===source) || !recipe.nodes.some(n=>n.id===target)) return recipe;
+            const chain = orderedNodes(recipe);
+            const next = chain.filter(n=>n.id!==target);
+            next.splice(next.findIndex(n=>n.id===source)+1,0,chain.find(n=>n.id===target));
+            return {...recipe,nodes:next,edges:replaceChain(next)};
+        }
 		function orderedNodes(recipe) {
 			const byId = new Map(recipe.nodes.map(node => [node.id, node]));
 			const targets = new Set(recipe.edges.map(edge => edge.target));
@@ -961,31 +1084,100 @@ function applyTheme(id, runtime) {
  useEffect(() => { const previous=document.activeElement; const dialog=document.querySelector('.aura-studio'); const focusable=()=>Array.from(dialog?.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href]') ?? []).filter(el=>el.getClientRects().length); focusable()[0]?.focus(); const trap=e=>{if(e.key!=="Tab")return;const list=focusable();const first=list[0],last=list[list.length-1];if(e.shiftKey && document.activeElement===first){e.preventDefault();last?.focus()}else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first?.focus()}};dialog?.addEventListener('keydown',trap);return()=>{dialog?.removeEventListener('keydown',trap);previous?.focus?.()};}, []);
 			const [recipe, setRecipe] = useState(() => readRecipe(sessionId));
 			const [library, setLibrary] = useState(readLibrary);
-			const [themeId, setThemeId] = useState(() => { try { return window.localStorage.getItem("dsh.aura.theme.v1") ?? "aurora"; } catch (_) { return "aurora"; } });
+			const [themeId, setThemeState] = useState(() => auraSettingsScope?.getSnapshot().value?.skin ?? window.__AURA_BOOT__?.skin ?? "catppuccin");
 			const [notice, setNotice] = useState("");
  const [catalog, setCatalog] = useState(null);
  const [modelError, setModelError] = useState("");
- const [task, setTask] = useState("");
+ const binding = runtime.sessions.binding(sessionId);
+ const input = binding ? runtime.conversation.input.for(binding.ctx) : null;
+ const [, refreshInput] = useState(0);
+ useEffect(() => {
+   if (!input) return;
+   const refresh = () => refreshInput(n => n + 1);
+   const a = input.state.subscribe(refresh);
+   const b = runtime.conversation.fileUploads.subscribe(refresh);
+   return () => { a(); b(); };
+ }, [input, runtime]);
+ const task = input?.state.getSnapshot().draft ?? "";
+ const setTask = text => input?.setDraft(text);
+ const attachmentIds = input?.state.getSnapshot().attachmentIds ?? [];
+ const attachments = runtime.conversation.resolveDraftAttachments(attachmentIds);
+ const uploads = runtime.conversation.fileUploads.getSnapshot();
+ const attachmentsReady = attachments.every(a => a.kind === "image" || uploads[a.id]?.status === "ready");
+ const [sourcesOpen, setSourcesOpen] = useState(false);
+ const filePicker = React.useRef(null);
+ const addAttachments = fileList => {
+   if (locked || sending || !input || !binding || !fileList?.length) return;
+   try {
+     if (binding.session.getSnapshot().subagent != null) throw Error("Attach sources in the parent conversation, not a subagent.");
+     if (input.state.getSnapshot().phase !== "plain") throw Error("Finish the current composer action before adding sources.");
+     const files = Array.from(fileList);
+     const limits = binding.session.projections.faceOf("imageLimits").getSnapshot();
+     if (limits) {
+       const incoming = files.filter(file=>limits.mediaTypes.includes(file.type));
+       const existing = attachments.filter(file=>file.kind === "image");
+       if(existing.length + incoming.length > limits.maxImagesPerMessage) throw Error(`This model accepts up to ${limits.maxImagesPerMessage} images per message.`);
+       if(incoming.some(file=>file.size > limits.maxImageBytes)) throw Error("An image exceeds this model’s per-image size limit.");
+       if(existing.reduce((sum,a)=>sum+a.file.size,0) + incoming.reduce((sum,file)=>sum+file.size,0) > limits.maxMessageImageBytes) throw Error("The images exceed this model’s combined message size limit.");
+     }
+     const drafts = runtime.conversation.createDrafts(sessionId, files);
+     if (!input.addAttachments(drafts.map(d => d.id))) {
+       runtime.conversation.releaseDraftAttachments(drafts);
+       throw Error("The composer is busy. Try again after the current submission.");
+     }
+     setSourcesOpen(true);
+   } catch (error) { setNotice("Could not attach: " + error.message); }
+ };
  const [sending, setSending] = useState(false);
  const [transfer, setTransfer] = useState("");
+			const [stageName, setStageName] = useState("");
+			const [insertAfter, setInsertAfter] = useState("role-implementer");
+            const [connecting, setConnecting] = useState(null);
+            const connectTo = (target, source = connecting) => {
+                if(locked || sending || !source) return;
+                setRecipe(prev=>connectPipeline(prev,source,target)); setConnecting(null);
+            };
+			const [fileDragging, setFileDragging] = useState(false);
+			const [visual, setVisualState] = useState(readVisualSettings);
+ const persistVisual = patch => {
+   const snapshot = auraSettingsScope?.getSnapshot();
+   if (snapshot?.status !== "ready" || !snapshot.writable || snapshot.mode !== "host") {
+     setNotice("Preview only: Harness settings are not writable on this connection."); return;
+   }
+   auraSettingsScope.mutate(Object.entries(patch).map(([key,value])=>({op:"set",path:[key],value})))
+     .catch(error=>setNotice("Settings could not be saved: " + error.message));
+ };
+ const setThemeId = skin => { setThemeState(skin); persistVisual({skin}); };
+ const setVisual = change => {
+   const next = typeof change === "function" ? change(visual) : change;
+   setVisualState(next);
+   persistVisual(Object.fromEntries(Object.keys(defaultVisualSettings()).filter(key=>next[key] !== visual[key]).map(key=>[key,next[key]])));
+ };
+ useEffect(() => auraSettingsScope?.subscribe(() => {
+   const snapshot = auraSettingsScope.getSnapshot();
+   if(snapshot.status === "ready" && snapshot.value) { setThemeState(snapshot.value.skin); setVisualState({...defaultVisualSettings(),...snapshot.value}); }
+ }), []);
  const loadModels = async () => { try { setModelError(""); const result = await runtime.remote.session.modelCatalog(); if (!result.ok) throw Error(result.error?.message || "Catalogue unavailable"); setCatalog(result.value); if (!locked) setRecipe(prev => recommendWorkflowModels(prev, result.value, task || prev.metadata.name, false, false)); } catch(e) { setModelError(e.message); } };
  useEffect(() => { let disposed = false; runtime.remote.session.modelCatalog().then(result => { if(disposed)return; if(result.ok) {setCatalog(result.value); if (!locked) setRecipe(prev => recommendWorkflowModels(prev, result.value, prev.metadata.name, false, false));} else setModelError(result.error?.message || "Catalogue unavailable"); }).catch(e => {if(!disposed)setModelError(e.message)}); return () => {disposed=true}; }, [runtime]);
  const choices = (catalog?.groups ?? []).flatMap(group => group.models.map(model => ({...model, provider:group.id})));
  const assignmentValid = recipe.nodes.every(node => choices.some(m => m.provider === node.data.model?.provider && m.id === node.data.model?.id) && catalog?.routableProviders?.includes(node.data.model?.provider));
  const startWorkflow = async () => {
- if(locked || sending || !assignmentValid || !task.trim()) return;
+ if(locked || sending || !assignmentValid || !task.trim() || !attachmentsReady || !input) return;
  setSending(true);
  try {
+ const initialDraft = input.state.getSnapshot();
+ if (initialDraft.phase !== "plain") throw Error("Finish the current composer action before running a workflow.");
+ if (initialDraft.occurrences?.length) throw Error("This draft contains reference chips. Use file attachments or plain task text for a workflow so references are not silently flattened.");
  const binding = runtime.sessions.binding(sessionId);
  if (!binding) throw Error("Open a conversation before starting a workflow.");
  const orchestrator = recipe.nodes.find(n => n.data.role === "Orchestrator").data.model;
  const selected = await runtime.remote.session.selectModel({sessionId, provider:orchestrator.provider, model:orchestrator.id});
  if(!selected.ok) throw Error(selected.error?.message || "Cannot select orchestrator");
+ if (input.state.getSnapshot().draftRev !== initialDraft.draftRev) throw Error("The shared draft changed while preparing. Review it and try again.");
  const payload = compileWorkflow(recipe, task);
- const response = await binding.session.prompt([{type:"text", text:payload}], "queue");
- if(!response.ok) throw Error(response.error?.message || "Workflow request rejected");
- setNotice("Workflow request sent. Harness will run the native workflow tool; follow actual progress in the conversation and live inspector.");
- setTask("");
+ input.setDraft(payload);
+ input.submit("queue");
+ onClose();
  } catch(e) {setNotice("Could not start: " + e.message)} finally {setSending(false)}
  };
 			const review = useMemo(() => validateRecipe(recipe), [recipe]);
@@ -995,7 +1187,8 @@ function applyTheme(id, runtime) {
 				try { window.localStorage.setItem(recipeKey(sessionId), JSON.stringify(recipe)); }
 				catch (_) { setNotice("Local draft storage is unavailable. Export this recipe to keep it."); }
 			}, [recipe, sessionId]);
-			useEffect(() => { applyTheme(themeId, runtime.theme); try { window.localStorage.setItem("dsh.aura.theme.v1", themeId); } catch (_) {} }, [themeId]);
+			useEffect(() => { applyTheme(themeId, runtime.theme); }, [themeId]);
+			useEffect(() => { applyVisualSettings(visual); }, [visual]);
 
 			const updateNode = (id, transform) => {
 				if (locked || sending) return;
@@ -1012,10 +1205,54 @@ function applyTheme(id, runtime) {
 				});
 			};
 			const shiftNode = (id, delta) => { const index = chain.findIndex(n => n.id === id); const next = chain[index + delta]; if (next) moveNode(id, next.id); };
+			const addStage = () => {
+				const role = stageName.trim().replace(/\s+/g, " ");
+				if (locked || sending || !role) return;
+				if (role.length > 60 || recipe.nodes.some(node => node.data.role.toLowerCase() === role.toLowerCase())) { setNotice("Stage names must be unique and 60 characters or fewer."); return; }
+				setRecipe(prev => {
+					const list = orderedNodes(prev).slice();
+					const used = new Set(list.map(node => node.id));
+					const stem = role.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48) || "custom-stage";
+					let id = `stage-${stem}`, suffix = 2; while (used.has(id)) id = `stage-${stem}-${suffix++}`;
+					const anchor = Math.max(0, list.findIndex(node => node.id === insertAfter));
+					const inherited = list[anchor]?.data;
+					list.splice(anchor + 1, 0, { id, type: "agent_node", data: { role, reasoning_effort: inherited?.reasoning_effort || "medium", tools: [], ...(inherited?.model ? { model: { ...inherited.model }, model_source: "auto" } : {}) } });
+					const next = { ...prev, nodes: list, edges: replaceChain(list), metadata: { ...prev.metadata, role_distribution: list.map(node => node.data.role) } };
+					return catalog ? recommendWorkflowModels(next, catalog, task || next.metadata.name, false) : next;
+				});
+				setStageName(""); setNotice(`${role} was added to the pipeline. Set its model and file access before running.`);
+			};
+			const removeStage = id => {
+				if (locked || sending || AURA_ROLES.includes(recipe.nodes.find(node => node.id === id)?.data.role)) return;
+				setRecipe(prev => { const list = orderedNodes(prev).filter(node => node.id !== id); return { ...prev, nodes: list, edges: replaceChain(list), metadata: { ...prev.metadata, role_distribution: list.map(node => node.data.role) } }; });
+			};
+			const pinFiles = async fileList => {
+				if (locked || sending) return;
+				const selected = Array.from(fileList || []).slice(0, 8);
+				if (!selected.length) return;
+				const remaining = Math.max(0, 8 - (recipe.files?.length || 0));
+				if (!remaining) { setNotice("The shelf already has eight pinned files. Remove one before adding another."); return; }
+				const accepted = [];
+				for (const file of selected.slice(0, remaining)) {
+					if (file.size > 32768) { setNotice(`${file.name} was skipped: files are limited to 32 KB each.`); continue; }
+					try { const text = await file.text(); if (text.includes('\u0000') || new TextEncoder().encode(text).length > 32768) { setNotice(`${file.name} was skipped: only text files up to 32 KB can be pinned.`); continue; } accepted.push({ id: `file-${Date.now()}-${accepted.length}-${Math.random().toString(36).slice(2, 7)}`, name: file.name.slice(0, 120), type: String(file.type || "text/plain").slice(0, 120), size: file.size, text, readers: [] }); }
+					catch (_) { setNotice(`${file.name} could not be read locally.`); }
+				}
+				if (accepted.length) { setRecipe(prev => ({ ...prev, files: [...(prev.files || []), ...accepted].slice(0, 8) })); setNotice(`${accepted.length} file${accepted.length === 1 ? "" : "s"} pinned locally. Choose which stages may receive each file.`); }
+			};
+			const updateFileReaders = (fileId, stageId, allowed) => setRecipe(prev => ({ ...prev, files: (prev.files || []).map(file => file.id !== fileId ? file : { ...file, readers: allowed ? [...new Set([...file.readers, stageId])] : file.readers.filter(id => id !== stageId) }) }));
+			const removeFile = fileId => setRecipe(prev => ({ ...prev, files: (prev.files || []).filter(file => file.id !== fileId) }));
+			const chooseBackdrop = async event => {
+				const file = event.target.files?.[0]; event.target.value = "";
+				if (!file) return;
+				if (file.size > 32768 || !(file.type === "image/svg+xml" || /\.svg$/i.test(file.name))) { setNotice("A custom backdrop must be an SVG smaller than 32 KB."); return; }
+				try { const svg = await file.text(); if (!/<svg\b/i.test(svg) || /<\s*(script|foreignObject|iframe|image|use)\b|\bon\w+\s*=|(?:href|src)\s*=|<!DOCTYPE|<!ENTITY|@import|url\s*\(/i.test(svg)) throw Error("Use a standalone SVG with paths and shapes only; scripts and external resources are not supported."); const encoded = btoa(unescape(encodeURIComponent(svg))); setVisual(prev => ({ ...prev, backdrop: "custom", backdropSvg: `data:image/svg+xml;base64,${encoded}` })); }
+				catch (error) { setNotice(error.message || "The selected SVG could not be loaded."); }
+			};
 			const importFile = async event => {
 				const file = event.target.files?.[0]; event.target.value = "";
 				if (!file || locked) return;
-				if (file.size > 131072) { setNotice("Import rejected: file exceeds 128 KB."); return; }
+				if (file.size > 2097152) { setNotice("Import rejected: file exceeds 2 MB."); return; }
 				try {
 					const incoming = canonicalRecipe(JSON.parse(await file.text()));
 					setRecipe(incoming); setTab("workflow"); setNotice(`Imported ${incoming.metadata.name} as this session’s local draft.`);
@@ -1063,24 +1300,39 @@ function applyTheme(id, runtime) {
 				),
 				r("div", { className: "aura-studio__row aura-studio__row--between" },
 					r("strong", null, "Agent chain"),
-					r("span", { className: "aura-studio__muted" }, "Drag a card or use arrows to reorder. All five roles remain present.")
+					r("span", { className: "aura-studio__muted" }, connecting ? "Choose an In port to connect this stage. The remaining chain reconnects automatically." : "Drag cards to reorder, or drag an Out port to an In port. Click ports for keyboard access. Links form one sequential pipeline.")
 				),
 				r("div", { className: "aura-graph", role: "list", "aria-label": "Editable agent chain" }, chain.map((node, i) => r("div", { key: node.id, className: "aura-graph__step" },
 					r("div", { className: "aura-graph__node", role: "listitem", draggable: !locked, "aria-disabled": locked ? "true" : "false", onDragStart: e => e.dataTransfer.setData("text/plain", node.id), onDragOver: e => { if (!locked) e.preventDefault(); }, onDrop: e => { e.preventDefault(); moveNode(e.dataTransfer.getData("text/plain"), node.id); } },
-						r("small", null, `0${i + 1} · ${node.data.reasoning_effort} effort`),
+						r("small", null, `${String(i + 1).padStart(2, "0")} · ${node.data.reasoning_effort} effort`),
 						r("strong", null, node.data.role),
-						r("small", null, AURA_ROLE_HELP[node.data.role]),
+                        r("div", {className:"aura-ports"},
+                            r("button",{type:"button",disabled:locked || sending,"aria-label":`Connect into ${node.data.role}`,onClick:()=>connectTo(node.id),onDragOver:e=>{e.preventDefault();e.stopPropagation();},onDrop:e=>{e.preventDefault();e.stopPropagation();connectTo(node.id,e.dataTransfer.getData('application/x-aura-port'));}},"○ In"),
+                            r("button",{type:"button",disabled:locked || sending,draggable:!locked && !sending,"aria-label":`Connect from ${node.data.role}`,"aria-pressed":connecting===node.id,onClick:()=>setConnecting(connecting===node.id?null:node.id),onDragStart:e=>{e.stopPropagation();e.dataTransfer.setData('application/x-aura-port',node.id);setConnecting(node.id);}},"Out ○")),
+						r("small", null, AURA_ROLE_HELP[node.data.role] || "Custom stage"),
  r("span", {className:"aura-model-badge"}, node.data.model ? `${node.data.model.provider} / ${node.data.model.id} · ${node.data.model_source === "auto" ? "auto" : "manual"}` : "Waiting for models"),
-						r("div", { className: "aura-graph__order" }, button("←", () => shiftNode(node.id, -1), { disabled: locked || i === 0, "aria-label": `Move ${node.data.role} left` }), button("→", () => shiftNode(node.id, 1), { disabled: locked || i === chain.length - 1, "aria-label": `Move ${node.data.role} right` }))
+						r("div", { className: "aura-graph__order" }, button("←", () => shiftNode(node.id, -1), { disabled: locked || i === 0, "aria-label": `Move ${node.data.role} left` }), button("→", () => shiftNode(node.id, 1), { disabled: locked || i === chain.length - 1, "aria-label": `Move ${node.data.role} right` }), !AURA_ROLES.includes(node.data.role) ? button("Remove", () => removeStage(node.id), { disabled: locked, "aria-label": `Remove ${node.data.role}` }) : null)
 					), i < chain.length - 1 ? r("span", { className: "aura-graph__connector", "aria-hidden": "true" }, "→") : null
 				))),
+				r("section", { className: "aura-stage-adder", "aria-label": "Add pipeline stage" },
+					r("h3", null, "Add a stage"),
+					r("p", { className: "aura-studio__muted" }, "Insert a custom stage into the connected pipeline. It can be dragged later, and will be routed only when you send this workflow."),
+					r("div", { className: "aura-stage-adder__form" },
+						r("label", null, "Stage name", r("input", { type: "text", value: stageName, maxLength: 60, disabled: locked || sending, placeholder: "Unit tests", onChange: e => setStageName(e.target.value), onKeyDown: e => { if (e.key === "Enter") { e.preventDefault(); addStage(); } } })),
+						r("label", null, "Insert after", r("select", { value: insertAfter, disabled: locked || sending, onChange: e => setInsertAfter(e.target.value) }, chain.map(node => r("option", { key: node.id, value: node.id }, node.data.role)))),
+						button("Add stage", addStage, { disabled: locked || sending || !stageName.trim() })
+					)
+				),
 				r("div", {className:"aura-studio__row"}, r("strong", null, "Models for each role"), button("Auto-match all roles", () => setRecipe(prev => recommendWorkflowModels(prev,catalog,task || prev.metadata.name,true)), {disabled:locked || sending || !catalog}), button("Refresh models", loadModels)),
  r("p", {className:"aura-studio__muted"}, `Automatic match: ${workflowUseCase(task || recipe.metadata.name)}. Based on model names and roles; live quota and prices are not available here. Manual picks stay fixed until you choose Auto-match all roles.`),
  modelError ? r("p", {role:"alert"}, modelError) : !catalog ? r("p", null, "Loading your Harness models…") : null,
 				chain.map(node => r("div", { className: "aura-role-editor", key: node.id },
 					r("strong", null, node.data.role),
- r("label", {className:"aura-model-field"}, "Model", r("select", {value: node.data.model ? JSON.stringify([node.data.model.provider,node.data.model.id]) : "", disabled:locked || sending, "aria-label":node.data.role + " model", onChange:e => {const [provider,id]=JSON.parse(e.target.value); updateNode(node.id,data=>({...data, model:{provider,id}, model_source:"manual"}));}}, r("option", {value:"",disabled:true},"Loading connected models"), (catalog?.groups ?? []).map(group => r("optgroup",{key:group.id,label:group.name || group.id},group.models.map(model => r("option",{key:model.id,value:JSON.stringify([group.id,model.id]),disabled:!catalog?.routableProviders?.includes(group.id)},model.name || model.id)))))),
- r("label", null, "Requested effort ", r("select", { value: node.data.reasoning_effort, disabled: locked, "aria-label": `${node.data.role} reasoning effort`, onChange: e => updateNode(node.id, data => ({ ...data, reasoning_effort: e.target.value })) }, AURA_EFFORTS.map(value => r("option", { key: value, value }, value)))),
+					r("div", { className: "aura-role-editor__controls" },
+ r("div",{className:"aura-provider-cards","aria-label":node.data.role + " providers"},(catalog?.groups ?? []).map(group=>r("button",{key:group.id,type:"button","aria-pressed":node.data.model?.provider===group.id,disabled:locked || sending || !group.models.length || !catalog?.routableProviders?.includes(group.id),onClick:()=>updateNode(node.id,data=>({...data,model:{provider:group.id,id:group.models[0].id},model_source:"manual"}))},group.name || group.id))),
+ r("label", {className:"aura-model-field"}, "Model endpoint", r("select", {value: node.data.model?.id || "", disabled:locked || sending, "aria-label":node.data.role + " model", onChange:e => updateNode(node.id,data=>({...data,model:{provider:data.model.provider,id:e.target.value},model_source:"manual"}))},r("option",{value:"",disabled:true},"Choose a connected provider"),(catalog?.groups.find(group=>group.id===node.data.model?.provider)?.models ?? []).map(model=>r("option",{key:model.id,value:model.id},model.name || model.id)))),
+						r("div", { className: "aura-effort" }, r("label", { htmlFor: `aura-effort-${node.id}` }, "Effort"), r("input", { id: `aura-effort-${node.id}`, type: "range", min: 0, max: 2, step: 1, value: Math.max(0, AURA_EFFORTS.indexOf(node.data.reasoning_effort)), disabled: locked, "aria-label": `${node.data.role} reasoning effort`, onChange: e => updateNode(node.id, data => ({ ...data, reasoning_effort: AURA_EFFORTS[Number(e.target.value)] })) }), r("output", null, node.data.reasoning_effort))
+					),
 					r("span", { className: "aura-studio__muted" }, "Requested tools (not enforced by workflow API)"),
 					r("div", { className: "aura-role-editor__tools" }, AURA_TOOLS.map(tool => r("label", { key: tool }, r("input", { type: "checkbox", disabled: locked, checked: node.data.tools.includes(tool), onChange: e => updateNode(node.id, data => ({ ...data, tools: e.target.checked ? [...data.tools, tool] : data.tools.filter(t => t !== tool) })) }), ` ${tool}`)))
 				)),
@@ -1089,15 +1341,39 @@ function applyTheme(id, runtime) {
 					r("input", { id: "aura-estimate", type: "number", min: 0, step: 1, value: recipe.estimate?.input_tokens ?? "", disabled: locked, onChange: e => setRecipe(prev => ({ ...prev, estimate: { input_tokens: e.target.value === "" ? null : Number(e.target.value) } })) }),
 					r("span", { className: "aura-studio__muted" }, "Optional, manually entered; no live metering.")
 				),
-			r("div", { className: review.errors.length ? "aura-studio__notice aura-studio__notice--error" : "aura-studio__notice", role: "status" }, review.errors.length ? `Needs review: ${review.errors.join(" ")}` : `Draft valid: 5 roles, 4 links, no cycles. ${review.warnings.join(" ")}`)
+			r("div", { className: review.errors.length ? "aura-studio__notice aura-studio__notice--error" : "aura-studio__notice", role: "status" }, review.errors.length ? `Needs review: ${review.errors.join(" ")}` : `Draft valid: ${chain.length} stages, ${Math.max(0, chain.length - 1)} links, no cycles. ${review.warnings.join(" ")}`)
 			);
 
 			const execution = r("div", {className:"aura-execution"},
- r("h3",null,"Run this workflow"),
- r("p",{className:"aura-studio__muted"},"Uses your selected provider accounts and their billing. Sends a native workflow request through the selected orchestrator. Per-role effort and tools are guidance; Harness permissions remain authoritative."),
- r("textarea",{value:task,disabled:locked || sending,maxLength:16000,"aria-label":"Workflow task",placeholder:"Describe the outcome, workspace, and acceptance criteria…",onChange:e=>{const description=e.target.value;setTask(description);if(catalog)setRecipe(prev=>recommendWorkflowModels(prev,catalog,description || prev.metadata.name));}}),
- button(sending ? "Sending…" : "Send workflow request",startWorkflow,{disabled:locked || sending || !assignmentValid || !task.trim() || review.errors.length>0,className:"aura-studio__button aura-studio__button--primary"}),
+ r("div", {className:"aura-studio__row aura-studio__row--between"}, r("h3",null,"Run this workflow"),
+ button(`＋ Add sources${attachments.length ? ` (${attachments.length})` : ""}`, () => setSourcesOpen(v => !v), {"aria-expanded":sourcesOpen,"aria-controls":"aura-shared-sources",disabled:!input || locked || sending})),
+ r("p",{className:"aura-studio__muted"},"Shares the startup composer’s draft and attachments. Sends through your selected provider accounts and their billing. Effort and tool selections are prompt guidance; native budgets and permissions remain controlled by Harness."),
+ sourcesOpen ? r("section", {id:"aura-shared-sources",className:"aura-source-dock","aria-label":"Shared Harness sources",onDragOver:e=>{e.preventDefault();e.stopPropagation();},onDrop:e=>{e.preventDefault();e.stopPropagation();addAttachments(e.dataTransfer.files);}},
+ r("strong",null,"Sources for this conversation"),
+ r("p",{className:"aura-studio__muted"},"Drop documents, notebook exports or images here. These are the same attachments shown in the Harness startup text box. Files upload to this Harness on selection; attached content can be used by the orchestrator and downstream agents."),
+ button("Choose files",()=>filePicker.current?.click(),{disabled:!input || locked || sending}),
+ r("input",{ref:filePicker,type:"file",multiple:true,hidden:true,"aria-label":"Attach shared Harness files",onChange:e=>{addAttachments(e.target.files);e.target.value="";}}),
+ attachments.length ? attachments.map(a=>r("article",{key:a.id,className:"aura-source-row"},r("div",null,r("strong",null,a.file.name || "Image"),r("small",null,`${a.file.size.toLocaleString()} bytes · ${a.kind === "image" ? "Ready to send" : uploads[a.id]?.status === "ready" ? "Uploaded to Harness" : uploads[a.id]?.status === "error" ? uploads[a.id].message : "Uploading…"}`)),
+ uploads[a.id]?.status === "error" ? button("Retry",()=>runtime.conversation.retryFileUpload(sessionId,a.id),{disabled:locked || sending}) : null,
+ button("Remove",()=>{if(input.removeAttachment(a.id))runtime.conversation.releaseDraftAttachment(a.id);},{disabled:locked || sending,"aria-label":`Remove shared source ${a.file.name}`}))) : r("p",null,"No sources attached. Add files here or from the startup composer.")) : null,
+ r("textarea",{value:task,disabled:!input || locked || sending,maxLength:16000,"aria-label":"Workflow task",placeholder:"Describe the outcome, workspace, and acceptance criteria…",onChange:e=>{const description=e.target.value;setTask(description);if(catalog)setRecipe(prev=>recommendWorkflowModels(prev,catalog,description || prev.metadata.name));}}),
+ !input ? r("p",{role:"status"},"Choose a workspace in Harness to use its shared composer and sources.") : null,
+ button(sending ? "Preparing…" : "Send workflow request",startWorkflow,{disabled:locked || sending || !input || !attachmentsReady || !assignmentValid || !task.trim() || review.errors.length>0,className:"aura-studio__button aura-studio__button--primary"}),
+ !attachmentsReady ? r("p",{role:"status"},"Wait for uploads to finish, or retry/remove failed sources.") : null,
  !assignmentValid ? r("p",null,catalog ? "Some assigned models are no longer routable. Refresh models or use Auto-match all roles." : "Loading models before this workflow can start.") : null);
+			const files = r("section", { className: "aura-file-shelf", "aria-label": "Pinned files and stage access" },
+				r("h3", null, "Files & notebook context"),
+				r("p", { className: "aura-studio__muted" }, "Optional recipe snippets, separate from shared Harness attachments beside Run this workflow. Checked stages receive direct context, but the orchestrator sees the recipe and outputs may carry context onward. These selections are not access-control boundaries."),
+				r("div", { className: "aura-file-shelf__drop", "data-dragging": fileDragging ? "true" : "false", onDragOver: e => { if (!locked) { e.preventDefault(); setFileDragging(true); } }, onDragLeave: () => setFileDragging(false), onDrop: e => { e.preventDefault(); setFileDragging(false); pinFiles(e.dataTransfer.files); } },
+					r("label", null, "Drop text files here or ", r("input", { type: "file", multiple: true, accept: ".txt,.md,.json,.yaml,.yml,.ts,.tsx,.js,.jsx,.css,.html,.py,.sql,.csv,text/plain,text/markdown,application/json", disabled: locked || sending, onChange: e => { pinFiles(e.target.files); e.target.value = ""; } })),
+					r("small", null, " Up to 8 files, 32 KB each. Binary files are rejected.")
+				),
+				(recipe.files || []).length ? (recipe.files || []).map(file => r("article", { className: "aura-file-card", key: file.id },
+					r("div", null, r("strong", null, file.name), r("div", { className: "aura-studio__muted" }, `${file.size.toLocaleString()} bytes · ${file.type || "text/plain"}`)),
+					button("Remove", () => removeFile(file.id), { disabled: locked || sending, "aria-label": `Remove ${file.name}` }),
+					r("div", { className: "aura-file-card__readers" }, r("span", null, "Direct context:"), chain.map(node => r("label", { key: node.id }, r("input", { type: "checkbox", disabled: locked || sending, checked: file.readers.includes(node.id), onChange: e => updateFileReaders(file.id, node.id, e.target.checked) }), ` ${node.data.role}`)))
+				)) : r("p", { className: "aura-studio__muted" }, "No context files pinned yet.")
+			);
  const memory = r(React.Fragment, null,
  r("label",null,"Reusable learning notes",r("textarea",{value:recipe.memory?.notes ?? "",maxLength:8000,disabled:locked,placeholder:"Record what worked, failed approaches to avoid, evidence, and when to reuse this workflow.",onChange:e=>setRecipe(prev=>({...prev,memory:{notes:e.target.value}}))})),
 				r("p", { className: "aura-studio__notice" }, "Taskmaster keeps only versions you explicitly save. Load one into this session, then edit or export it. No task content is recorded automatically."),
@@ -1110,19 +1386,28 @@ function applyTheme(id, runtime) {
 			);
 
 			const design = r(React.Fragment, null,
-				r("p", { className: "aura-studio__notice" }, "Six curated GitHub theme adaptations for the entire Harness interface: sidebar, conversation, editor, menus and Aura. They follow Harness light/dark mode. Only bundled color tokens are loaded; repository code is never executed."),
-				r("p",null,AURA_THEMES.map(theme=>r("a",{key:theme.id,href:theme.source,target:"_blank",rel:"noopener noreferrer",style:{marginRight:12}},theme.name))),
+				r("p", { className: "aura-studio__notice" }, "Choose an Aura skin, then tune its materials live. All palettes, ornaments and SVG handling are bundled locally; no theme code is fetched or executed."),
  r("div", { className: "aura-theme-grid" }, AURA_THEMES.map(theme => r("button", { type: "button", className: "aura-theme-card", key: theme.id, "aria-pressed": resolveAuraTheme(themeId).id === theme.id, onClick: () => setThemeId(theme.id) },
 					r("span", { className: "aura-theme-swatch", style: { background: theme.background, borderLeft: `28px solid ${theme.accent}`, boxShadow: `inset 0 -14px 0 ${theme.dark[2]}` } }),
 					r("strong", null, theme.name), r("small",null,theme.description), r("small",null,theme.license)
-				)))
+				))),
+				r("section", { className: "aura-visual-controls", "aria-label": "Live visual controls" },
+					r("h3", null, "Live visual controls"),
+					r("div", { className: "aura-visual-grid" },
+						r("label", null, "Backdrop", r("select", { value: visual.backdrop, onChange: e => setVisual(prev => ({ ...prev, backdrop: e.target.value, backdropSvg: e.target.value === "custom" ? prev.backdropSvg : "" })) }, [["none", "None"], ["sun-grid", "Retro sun grid"], ["jali", "Mughal jali lattice"], ["peacock", "Madhubani peacock"], ["custom", "Custom SVG"]].map(([value, label]) => r("option", { key: value, value }, label)))),
+						r("label", null, "Custom SVG", r("input", { type: "file", accept: ".svg,image/svg+xml", onChange: chooseBackdrop }), r("small", null, "Local SVG, max 32 KB")),
+						[["glow", "Glow / neon intensity", 0, 100], ["border", "Border weight", 0, 8], ["arch", "Arch curvature", 0, 48], ["lattice", "Lattice opacity", 0, 30], ["opacity", "Backdrop opacity", 0, 25], ["blur", "Backdrop blur", 0, 24]].map(([key,label,min,max]) => r("label", { key }, label, r("input", { type: "range", min, max, value: visual[key], onChange: e => setVisual(prev => ({ ...prev, [key]: Number(e.target.value) })) }), r("output", null, visual[key]))),
+						r("div", { className: "aura-backdrop-preview", "aria-label": "Backdrop preview" })
+					),
+					button("Reset visual controls", () => setVisual(defaultVisualSettings))
+				)
 			);
 
 			return r("div", { className: "aura-studio-backdrop", onMouseDown: e => { if (e.target === e.currentTarget) onClose(); } },
 				r("section", { className: "aura-studio", role: "dialog", "aria-modal": "true", "aria-label": "Aura Studio" },
-					r("header", { className: "aura-studio__head" }, r("div", { className: "aura-studio__title" }, r("strong", null, "Aura Studio"), r("small", null, "Local recipe, memory and design workspace")), button("Close", onClose, { "aria-label": "Close Aura Studio" })),
-					r("div", { className: "aura-studio__tabs", role: "tablist", "aria-label": "Aura Studio sections" }, [["workflow", "Agent Workflow"], ["memory", "Jobs & Skills"], ["design", "UI Design"]].map(([id, label]) => r("button", { type: "button", key: id, role: "tab", "aria-selected": tab === id, onClick: () => setTab(id) }, label))),
-					r("div", { className: "aura-studio__body" }, notice ? r("p", { className: "aura-studio__notice", role: "status" }, notice) : null, tab === "workflow" ? r(React.Fragment,null,workflow,execution) : tab === "memory" ? memory : design, transfer ? r("details",{open:true},r("summary",null,"Transfer JSON — select and save if download is unavailable"),r("textarea",{readOnly:true,value:transfer,"aria-label":"Exported recipe JSON",onFocus:e=>e.target.select()})) : null)
+					r("header", { className: "aura-studio__head" }, r("div", { className: "aura-studio__title" }, r("strong", null, "Aura Studio"), r("small", null, "Workflow routing, shared sources and live themes")), button("Close", onClose, { "aria-label": "Close Aura Studio" })),
+					r("div", { className: "aura-studio__tabs", role: "tablist", "aria-label": "Aura Studio sections" }, [["workflow", "Agent Workflow"], ["files", "Recipe snippets"], ["memory", "Jobs & Skills"], ["design", "Artisan UI Studio"]].map(([id, label]) => r("button", { type: "button", key: id, role: "tab", id: `aura-tab-${id}`, "aria-controls":"aura-studio-panel", tabIndex:tab===id?0:-1, "aria-selected": tab === id, onKeyDown:e=>{const ids=["workflow","files","memory","design"];const step=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(step){e.preventDefault();const next=ids[(ids.indexOf(id)+step+ids.length)%ids.length];setTab(next);document.getElementById(`aura-tab-${next}`)?.focus();}}, onClick: () => setTab(id) }, label))),
+					r("div", { className: "aura-studio__body",id:"aura-studio-panel",role:"tabpanel","aria-labelledby":`aura-tab-${tab}` }, notice ? r("p", { className: "aura-studio__notice", role: "status" }, notice) : null, tab === "workflow" ? r(React.Fragment,null,execution,workflow) : tab === "files" ? files : tab === "memory" ? memory : design, transfer ? r("details",{open:true},r("summary",null,"Transfer JSON — select and save if download is unavailable"),r("textarea",{readOnly:true,value:transfer,"aria-label":"Exported recipe JSON",onFocus:e=>e.target.select()})) : null)
 				));
 		}
 
@@ -1239,17 +1524,35 @@ function applyTheme(id, runtime) {
 		/* Plugin body                                                         */
 		/* ================================================================== */
 
-		const inject = ["sessions", "slots", "locale", "remote", "remote.skills", "remote.session", "theme"];
+		let auraSettingsScope;
+		const inject = ["sessions", "slots", "locale", "remote", "remote.skills", "remote.session", "theme", "conversation", "settingsScope"];
 
 		function apply(ctx) {
 			ctx.effect(() => ctx.locale.register(NS, { zh, en }), "ui-aura: dictionaries");
+            auraSettingsScope = ctx.settingsScope.bind({ namespace: "ui-aura" });
+            ctx.effect(() => {
+                const refresh = () => {
+                    const snapshot = auraSettingsScope.getSnapshot();
+                    const value = snapshot.value ?? window.__AURA_BOOT__;
+                    if (!value) return;
+                    applyTheme(value.skin, ctx.theme);
+                    applyVisualSettings(value);
+                };
+                refresh();
+                const unsubscribe = auraSettingsScope.subscribe(refresh);
+                return () => {
+                    unsubscribe(); disposeAuraTheme?.();
+                    document.querySelector('style[data-aura-palette]')?.remove();
+                    delete document.body.dataset.auraSkin; delete document.body.dataset.auraBackdrop;
+                    for (const key of Array.from(document.documentElement.style)) if (key.startsWith('--aura-')) document.documentElement.style.removeProperty(key);
+                };
+            }, "ui-aura: shared settings");
 
 			/* ---- global stylesheet, owned for exactly this plugin lifetime ---- */
 			ctx.effect(() => {
 				if (typeof document === "undefined") return void 0;
 				const tagId = `${PLUGIN_ID}/aura.css`;
-				if (document.querySelector(`style[data-plugin-css="${tagId}"]`) !== null) return void 0;
-				const tag = document.createElement("style");
+				const tag = document.querySelector(`style[data-plugin-css="${tagId}"]`) ?? document.createElement("style");
 				tag.dataset.plugin = PLUGIN_ID;
 				tag.dataset.pluginCss = tagId;
 				tag.textContent = AURA_CSS;
@@ -1366,7 +1669,6 @@ function applyTheme(id, runtime) {
 					dockListeners.add(listener);
 					return () => { dockListeners.delete(listener); };
 				}, [setOpen]);
-				useEffect(() => { try { applyTheme(window.localStorage.getItem("dsh.aura.theme.v1") ?? "aurora", ctx.theme); } catch (_) { applyTheme("aurora", ctx.theme); } }, []);
 
 				// Stable property-access selectors only. Returning an object or
 				// array literal here would break snapshot-hook identity and

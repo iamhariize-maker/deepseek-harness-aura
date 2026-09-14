@@ -1,9 +1,28 @@
 {
   "name": "dsh-ui-aura",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamhariize-maker/deepseek-harness-aura.git"
+  },
+  "files": [
+    "lib/",
+    "scripts/",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build-bootstrap.mjs",
+    "test": "node scripts/test-aura.mjs"
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "3.18.2",
+    "deepseek-harness-aura": "file:../.."
+  },
   "type": "module",
-  "description": "Model-assigned workflows, reusable notes, live activity and whole-interface themes for DeepSeek Harness web.",
+  "description": "Aura Studio for DeepSeek Harness: visual workflow pipelines, model routing, local file context and artisan UI controls.",
   "exports": {
     ".": "./lib/index.js",
     "./client": "./lib/client.js",
@@ -19,13 +38,10 @@
         "remote",
         "remote.skills",
         "remote.session",
-        "theme"
+        "theme",
+        "conversation",
+        "settingsScope"
       ]
     }
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iamhariize-maker/deepseek-harness-aura.git"
   }
 }
