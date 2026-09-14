@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "npm --prefix packages/dsh-ui-aura run build",
-    "test": "npm --prefix packages/dsh-ui-aura test"
+    "pretest": "npm --prefix packages/dsh-ui-aura install --ignore-scripts",
+    "test": "npm run build && npm --prefix packages/dsh-ui-aura test"
   },
   "license": "MIT",
   "repository": {
