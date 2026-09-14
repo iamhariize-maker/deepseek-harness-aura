@@ -1,9 +1,10 @@
 {
   "name": "deepseek-harness-aura",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "test": "node tests/recipe.cjs && node tests/verify-aura.cjs packages/dsh-ui-aura/lib/client.js && node tests/aura-regression.cjs packages/dsh-ui-aura/lib/client.js && node tests/workflow.cjs"
+    "build": "npm --prefix packages/dsh-ui-aura run build",
+    "test": "npm --prefix packages/dsh-ui-aura test"
   },
   "license": "MIT",
   "repository": {

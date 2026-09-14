@@ -1,6 +1,6 @@
 # Whole-Harness theme sources
 
-Aura includes six curated palette adaptations of established open-source GitHub projects. They recolor Harness's native semantic theme tokens across its sidebar, conversation, composer, menus, dialogs, borders, text and code surfaces. They preserve Harness's light/dark preference. They do not replace app layouts or download executable repository code. The light Dracula variant is an Aura adaptation; the other variants are also adapted to native Harness surfaces and contrast needs.
+Aura includes six curated palette adaptations of established open-source GitHub projects, plus two Aura-original artisan palettes (**Vaporwave Sunset** and **Tanjore Regal**) for eight offline themes total. All are local adaptations/inspirations, not official integrations. They recolor Harness's native semantic theme tokens across its sidebar, conversation, composer, menus, dialogs, borders, text and code surfaces. They preserve Harness's light/dark preference. They do not replace app layouts or download executable repository code. The light Dracula variant is an Aura adaptation; the other variants are also adapted to native Harness surfaces and contrast needs.
 
 This is a curated collection, not a claim that these are the six objectively “best” or most-starred repositories. Source and license links were reviewed on 2026-09-13. Installed palettes are static and reproducible; no automatic remote updates occur.
 

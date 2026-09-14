@@ -1,58 +1,55 @@
-# DeepSeek Harness Aura 1.3.1
+# DeepSeek Harness Aura 2.0.0
 
-Aura adds a model-assigned workflow editor, reusable workflow notes, a live activity inspector, and six whole-interface theme adaptations to DeepSeek Harness.
+Aura adds a visual agent-workflow studio, a shared source/attachment shelf, connected-provider model routing, and eight offline whole-interface themes to DeepSeek Harness.
 
 **Status:** Open-source web plugin for an existing DeepSeek Harness installation. It is not a hosted service or a model provider; you use your own Harness configuration and provider access. The source and tests are available here under MIT.
 
 ## Quick start
 
 1. [Download this repository](https://github.com/iamhariize-maker/deepseek-harness-aura/archive/refs/heads/main.zip) or clone it. You need an existing DeepSeek Harness **web** profile.
-2. Copy `packages/dsh-ui-aura` from the download into your profile at `<DSH_HOME>/profiles/web/packages/dsh-ui-aura` (`DSH_HOME` defaults to `~/.dsh`).
+2. Copy `packages/dsh-ui-aura` from the download into your profile at `<DSH_HOME>/profiles/web/packages/dsh-ui-aura` (`DSH_HOME` defaults to `~/.dsh`), then inside it run `npm install --ignore-scripts` and `npm run build`.
 3. Add this entry to `<DSH_HOME>/profiles/web/cordis.patch.yml`, preserving its existing entries:
 
    ```yaml
    - insert:
        - id: ui-aura
-         name: ./packages/dsh-ui-aura/lib/index.js
+         name: ./packages/dsh-ui-aura/lib/host.js
    ```
 
-4. Restart the Harness web process and refresh the browser. Open **Workflow → Open Aura Studio**.
+4. Restart the Harness web process (while no turn is running) and refresh the browser. Open **Workflow → Open Aura Studio**.
 
 For a Windows PowerShell walkthrough, verification and removal, see [Installation](docs/INSTALL.md). This repository is currently a source distribution; it is not published as an npm package or a one-command `dsh plugin add` bundle.
 
 ## What Aura does
 
-- **Agent Workflow:** choose the model for each role, reorder the five stages, save a recipe per conversation, and send a native Harness workflow request. Auto-match uses the live model catalogue and task description.
-- **Jobs & Skills:** save versioned reusable notes and transfer recipes as JSON.
-- **Live inspector:** see the active agent/job lineage reported by Harness.
-- **UI Design:** apply six bundled palette adaptations across the Harness interface. These are theme palettes, not remote executable layouts.
+- **Add sources:** a shared shelf beside **Run this workflow**, backed by the same native Harness conversation draft registry as the startup attachment button (upload status/retry/removal, image-limit checks, shared task draft, native composer send).
+- **Agent Workflow:** a sequential five-stage pipeline (Orchestrator, Scout, Implementer, Reviewer, Verifier) plus up to seven custom stages, with drag/keyboard/card reordering and out→in port reconnection.
+- **Providers & models:** live provider cards and provider-scoped model selectors; manual choices persist until explicitly rematched.
+- **Recipe snippets & Jobs/Skills:** bounded stage-context snippets and a manually saved, browser-local recipe library with JSON transfer.
+- **Artisan UI Studio:** eight offline palettes (Vaporwave Sunset, Tanjore Regal, Primer, Catppuccin, Nord, Dracula, Rosé Pine, Tokyo Night) with glow/border/arch/lattice/backdrop controls.
 
 ## Use
 
 Open **Workflow → Open Aura Studio** in Harness.
 
-1. Aura selects a provider/model for each of the five roles from the live Harness catalogue. With no task description, it balances stronger planning, implementation and review models with faster scouting and checking models. Describing a coding, research, visual, reasoning or writing task re-ranks automatic choices. You can change a role manually; that choice stays fixed until you select **Auto-match all roles**. Credentials remain with Harness.
-2. Drag cards or use their arrow buttons to arrange the chain. Assignments and ordering are saved separately for each conversation.
-3. Enter a task and choose **Send workflow request**. Aura selects the orchestrator and sends the compiled native `workflow` tool request into that conversation. The model must invoke that tool; successful message admission does not prove the workflow executed. Actual execution appears in the Harness conversation and live inspector. Provider billing and quotas apply.
-4. In **Jobs & Skills**, write reusable notes and save a version. Identical versions are deduplicated. Load or delete saved versions individually. JSON transfer includes model assignments and notes. New conversations begin with a fresh recipe.
-5. In **UI Design**, select Primer, Catppuccin, Nord, Dracula, Rosé Pine, or Tokyo Night. Native semantic tokens recolor the whole app while preserving its light/dark mode. These are bundled palette adaptations, not downloaded executable layouts. See [theme attribution](docs/THEME_SOURCES.md).
-
-The editor locks while its session lineage reports running agents/jobs. Start is also disabled during message admission. Export requests a browser download and exposes selectable JSON as a fallback for browsers that block downloads.
+1. **Run this workflow** sits at the top; its task text is the same draft as the startup composer. **Add sources** shares documents, notebook exports, code and images with the native attachment shelf. Nothing is sent to a model until you submit.
+2. Reorder stages by dragging cards, using arrows, or connecting an **Out** port to an **In** port (keyboard navigation is supported). Reconnection preserves one sequential chain; arbitrary branching DAGs are not supported.
+3. Each stage has a model selector scoped to its provider card. Auto-match is a model-name heuristic, not a quota, capability or price guarantee.
+4. Send a workflow request; Aura compiles a native `workflow` tool request and passes it through the resident composer. The orchestrator must invoke that tool; successful admission does not prove execution. Provider billing and quotas apply.
+5. In **Artisan UI Studio**, pick a palette and adjust visual controls. Appearance persists through the host-backed `ui-aura` settings namespace (normally `$DSH_HOME/settings.yaml`) and is applied by a synchronous pre-paint bootstrap.
 
 ## Platform limits
 
-The native workflow agent hook accepts provider/model overrides, but not enforced per-role tool restrictions or reasoning effort. Those settings are labelled guidance. Harness permissions, subagent model allowlists, total-agent limits and cancellation remain authoritative. A five-stage recipe needs a preset permitting at least five workflow agents; capped presets may reject it. Listed models may still lack quota or be disallowed for subagents. Aura does not silently replace unavailable routes or estimate bills from invented prices.
+The installed Harness workflow API accepts provider/model routing but explicitly rejects per-stage `effort`, `isolation`, and `agentType` options. Aura's effort and tool controls are therefore labeled **prompt guidance**, not native enforcement. Harness permissions, subagent model allowlists, total-agent limits, cancellation, budgets, context support and provider billing remain authoritative.
 
-Automatic matching uses transparent role/task rules and model names available from Harness. The catalogue does not provide dependable live quota, route health or price data, so these recommendations cannot guarantee the cheapest working route. A disappeared or non-routable model is replaced from the current catalogue when models refresh; valid manual choices are preserved.
-
-The native tool request is orchestrator-mediated, not a new deterministic host executor. No separate host controller, autonomous learning, arbitrary DAG branching, automatic GitHub updates, or cross-browser memory sync is claimed. Local recipe storage uses the existing v1 format with backward-compatible model and memory fields. Saved notes are supplied as workflow context when you send a task.
+Stage snippet selections are direct context routing, not security or access-control isolation. The editor represents one connected sequential pipeline, not a branching DAG. Custom SVGs are bounded and restricted to self-contained shapes; untrusted content is never interpolated into raw HTML/CSS/scripts. NotebookLM exports can be attached, but Aura does not connect to NotebookLM accounts or provide permanent directory-style source indexing. Provider pricing, quota, multimodal support, ZDR and retention are not verified.
 
 ## Verify
 
-Run `npm test` using Node.js 22 or newer. Tests cover recipe semantics, model/memory round-trip, executable workflow compilation with synthetic agents, stop-on-failure, theme maps, and the original session/job/skill integration. No inference is required for these tests.
+Run `npm run build` then `npm test` using Node.js 22 or newer. Tests cover schemas, safe SVGs, host injection, pre-paint bootstrap, pipeline routing and failure, custom stages, graph validation, snippet bounds, and native composer integration seams. The optional isolated settings integration test runs against an installed Harness: `node packages/dsh-ui-aura/scripts/test-settings.mjs <installed-node_modules>` (it uses a synthetic temporary settings document). No inference is required for these tests.
 
 ## Security and license
 
-No credentials, private conversations, research PDF, or local provider settings belong in this repository. Recipes are saved in the browser; provider credentials stay in Harness. See [SECURITY.md](SECURITY.md) for reporting guidance and [theme attribution](docs/THEME_SOURCES.md) for upstream notices.
+No credentials, private conversations, research PDFs, `.dsh` settings, or local provider settings belong in this repository. Recipes are saved in the browser; provider credentials stay in Harness. See [SECURITY.md](SECURITY.md) for reporting guidance and [theme attribution](docs/THEME_SOURCES.md) for upstream notices.
 
 Aura is released under the [MIT License](LICENSE). The theme projects retain their own licenses, copied into `docs/theme-licenses`.
