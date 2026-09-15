@@ -166,6 +166,22 @@ div.aura-dock > * { pointer-events: auto; }
   70%, 100% { box-shadow: 0 0 0 8px rgba(109,124,255,0); }
 }
 
+/* ------------------------- workflow topology ------------------------- */
+.aura-topology { position: relative; display: grid; gap: 0; padding: 10px; background: linear-gradient(90deg, color-mix(in srgb, var(--aura-accent) 5%, transparent) 1px, transparent 1px) 0 0/18px 18px, linear-gradient(color-mix(in srgb, var(--aura-accent) 5%, transparent) 1px, transparent 1px) 0 0/18px 18px; }
+.aura-topology__node { --aura-stage: var(--aura-accent); position: relative; z-index: 1; display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 9px; width: 100%; padding: 9px; border: .5px solid color-mix(in srgb, var(--aura-stage) 34%, var(--dsw-alias-border-l3)); border-radius: 12px; background: color-mix(in srgb, var(--aura-node-bg) 92%, var(--aura-stage) 8%); color: var(--dsw-alias-label-primary); text-align: left; cursor: pointer; transition: transform .16s var(--aura-ease), border-color .16s var(--aura-ease), box-shadow .16s var(--aura-ease); }
+.aura-topology__node:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--aura-stage) 68%, transparent); }
+.aura-topology__node:focus-visible { outline: 2px solid var(--aura-stage); outline-offset: 2px; }
+.aura-topology__node--running { box-shadow: 0 0 0 1px color-mix(in srgb, var(--aura-stage) 36%, transparent), 0 0 20px color-mix(in srgb, var(--aura-stage) 22%, transparent); }
+.aura-topology__index { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: color-mix(in srgb, var(--aura-stage) 18%, transparent); color: var(--aura-stage); font-size: 10px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.aura-topology__copy { display: grid; min-width: 0; gap: 2px; }
+.aura-topology__role { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 700; }
+.aura-topology__model { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--dsw-alias-label-secondary); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; }
+.aura-topology__state { align-self: start; padding: 3px 6px; border-radius: 999px; background: color-mix(in srgb, var(--aura-stage) 13%, transparent); color: var(--aura-stage); font-size: 9px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+.aura-topology__node--running .aura-topology__state { animation: auraTopologyPulse 1.4s var(--aura-ease) infinite; }
+.aura-topology__edge { position: relative; z-index: 0; height: 15px; margin-left: 23px; border-left: 1px solid color-mix(in srgb, var(--aura-accent-2) 55%, var(--dsw-alias-border-l3)); }
+.aura-topology__edge::after { content: ""; position: absolute; bottom: -1px; left: -4px; width: 7px; height: 7px; border-right: 1px solid var(--aura-accent-2); border-bottom: 1px solid var(--aura-accent-2); transform: rotate(45deg); }
+@keyframes auraTopologyPulse { 50% { opacity: .55; } }
+
 /* --------------------------- workflow tree --------------------------- */
 
 .aura-node {
@@ -472,13 +488,21 @@ div.aura-dock { font-family: "Segoe UI", sans-serif; box-sizing: border-box; }
 .aura-studio__tabs { overflow-x:auto; }
 .aura-studio__tabs button { white-space:nowrap; }
 .aura-studio__body { position:relative; isolation:isolate; background:linear-gradient(145deg,color-mix(in srgb,var(--aura-accent-2) 4%,transparent),transparent 42%); }
-.aura-graph { position:relative; padding:22px 8px 24px; border:1px solid color-mix(in srgb,var(--aura-accent) 28%,var(--dsw-alias-border-l1)); border-radius:var(--aura-arch,16px); background:color-mix(in srgb,var(--aura-accent) 3%,var(--aura-node-bg)); isolation:isolate; }
+.aura-graph { position:relative; padding:26px 14px 28px; border:1px solid color-mix(in srgb,var(--aura-accent) 28%,var(--dsw-alias-border-l1)); border-radius:var(--aura-arch,16px); background:color-mix(in srgb,var(--aura-accent) 3%,var(--aura-node-bg)); isolation:isolate; }
 .aura-graph::before { content:""; position:absolute; inset:0; pointer-events:none; z-index:-1; opacity:.38; background-image:linear-gradient(color-mix(in srgb,var(--aura-accent) 16%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--aura-accent) 16%,transparent) 1px,transparent 1px); background-size:24px 24px; mask-image:linear-gradient(to bottom,black,transparent); }
-.aura-graph__node { position:relative; min-height:132px; border-radius:calc(var(--aura-arch,16px) - 4px); box-shadow:0 8px 30px color-mix(in srgb,var(--aura-accent-2) calc(var(--aura-glow,55) * .15%),transparent); }
+.aura-graph__step { flex:0 0 min(276px,78vw); min-width:240px; }
+.aura-graph__node { position:relative; display:flex; flex-direction:column; gap:7px; min-height:186px; border-radius:calc(var(--aura-arch,16px) - 4px); padding:14px; box-shadow:0 8px 30px color-mix(in srgb,var(--aura-accent-2) calc(var(--aura-glow,55) * .15%),transparent); }
+.aura-graph__node[data-stage-state="source"] { border-color:var(--aura-accent-2); box-shadow:0 0 0 2px color-mix(in srgb,var(--aura-accent-2) 32%,transparent),0 8px 30px color-mix(in srgb,var(--aura-accent-2) 24%,transparent); }
+.aura-graph__node[data-stage-state="locked"] { filter:saturate(.65); }
+.aura-graph__head { display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--dsw-alias-label-tertiary); font-size:11px; }
+.aura-graph__index { font-variant-numeric:tabular-nums; }
+.aura-graph__state { color:var(--aura-accent-2); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+.aura-graph__route { display:block; min-height:18px; overflow:hidden; color:var(--dsw-alias-label-secondary); font:11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace; text-overflow:ellipsis; white-space:nowrap; }
 .aura-graph__node::before { content:""; position:absolute; width:9px; height:9px; right:10px; top:10px; border-radius:50%; background:var(--aura-accent-2); box-shadow:0 0 calc(var(--aura-glow,55) * .22px) var(--aura-accent-2); }
-.aura-graph__connector { display:grid; place-items:center; font-size:0; position:relative; }
+.aura-graph__connector { display:grid; flex:0 0 40px; place-items:center; font-size:0; position:relative; }
 .aura-graph__connector::before { content:""; width:100%; border-top:var(--aura-border-weight,2px) solid var(--aura-accent); opacity:.72; }
 .aura-graph__connector::after { content:"›"; font-size:22px; position:absolute; right:0; color:var(--aura-accent); }
+.aura-graph__connector--linked::before { box-shadow:0 0 12px color-mix(in srgb,var(--aura-accent) 52%,transparent); }
 .aura-role-editor { grid-template-columns:150px minmax(220px,2fr) minmax(145px,1fr); padding:14px; border:1px solid var(--dsw-alias-border-l2); border-radius:var(--aura-arch,12px); background:color-mix(in srgb,var(--aura-accent) 4%,var(--aura-node-bg)); }
 .aura-role-editor__controls { display:grid; gap:8px; }
 .aura-effort { display:grid; grid-template-columns:auto 1fr auto; gap:8px; align-items:center; min-width:0; }
@@ -610,6 +634,7 @@ body[data-aura-skin="tanjore-regal"] .aura-studio__title strong { font-family:Ge
 					id,
 					depth,
 					title: summary ? titleOf(summary, id) : (entry && entry.label) || shortId(id),
+					phase: summary?.phase ?? entry?.phase ?? null,
 					isSubagent: depth > 0,
 					isLast: isLast !== false,
 					running: summary
@@ -982,39 +1007,31 @@ function applyTheme(id, runtime) {
 			return r("span", { className: cls.join(" ") });
 		}
 
-		function WorkflowPanel({ nodes, t }) {
+		function WorkflowPanel({ nodes, recipe, onOpenStudio, t }) {
+			const stages = orderedNodes(recipe ?? defaultRecipe());
 			const anyRunning = nodes.some((n) => n.running);
+			const palette = ["var(--aura-accent)", "var(--aura-accent-2)", "var(--aura-accent-3)", "var(--aura-ok)", "var(--aura-warn)"];
+			const roleMatch = (role) => nodes.find((node) => node.running && [node.phase, node.title].some((value) => String(value ?? "").trim().toLowerCase() === role.toLowerCase()));
 			return r("section", { className: "aura-panel", "aria-label": t("panel.workflow") },
 				r("header", { className: "aura-panel__head" },
 					r("span", { className: anyRunning ? "aura-pulse" : "aura-pulse aura-pulse--idle" }),
 					r("span", { className: "aura-panel__head-title" }, t("panel.workflow")),
 					r("span", { className: "aura-panel__count" }, t(nodes.length === 1 ? "count.agent" : "count.agents", { count: nodes.length }))
 				),
-				r("div", { className: "aura-panel__body", role: "list", "aria-label": t("panel.workflow") },
-					nodes.length === 0
-						? r("div", { className: "aura-empty" }, t("workflow.empty"))
-						: nodes.map((n) => {
-							const cls = ["aura-node"];
-							cls.push(n.depth === 0 ? "aura-node--root" : "aura-node--child");
-							if (n.isLast) cls.push("aura-node--last");
-							if (n.running) cls.push("aura-node--running");
-							if (n.isCurrent) cls.push("aura-node--current");
-							const badge = n.running
-								? r("span", { className: "aura-node__badge aura-node__badge--running" }, t("state.running"))
-								: r("span", { className: "aura-node__badge" }, t("state.idle"));
-							return r("div", {
-								key: n.id,
-								className: cls.join(" "),
-								title: `${n.title}\n${n.id}`,
-								role: "listitem",
-                                style: { marginLeft: Math.min(n.depth, 6) * 16 },
-								"aria-label": `${n.title} ${n.running ? t("state.running") : t("state.idle")}`
-							},
-								r("span", { className: "aura-node__spark" }),
-								r(NodeDot, { running: n.running, done: false }),
-								r("span", { className: "aura-node__label" }, n.title),
-								badge);
-						})
+				r("div", { className: "aura-topology", role: "list", "aria-label": `${t("panel.workflow")} topology` },
+					stages.map((stage, index) => {
+						const liveNode = roleMatch(stage.data.role);
+						const model = stage.data.model;
+						const route = model ? `${model.provider} / ${model.id}` : "Assign a model in Aura Studio";
+						return r(React.Fragment, { key: stage.id },
+							r("button", { type: "button", className: `aura-topology__node${liveNode ? " aura-topology__node--running" : ""}`, onClick: onOpenStudio, style: { "--aura-stage": palette[index % palette.length] }, title: `${stage.data.role}\n${route}`, role: "listitem", "aria-label": `${stage.data.role}: ${route}; ${liveNode ? t("state.running") : "ready"}` },
+								r("span", { className: "aura-topology__index", "aria-hidden": "true" }, String(index + 1).padStart(2, "0")),
+								r("span", { className: "aura-topology__copy" }, r("span", { className: "aura-topology__role" }, stage.data.role), r("span", { className: "aura-topology__model" }, route)),
+								r("span", { className: "aura-topology__state" }, liveNode ? t("state.running") : "ready")
+							),
+							index < stages.length - 1 ? r("span", { className: "aura-topology__edge", "aria-hidden": "true" }) : null
+						);
+					})
 				));
 		}
 
@@ -1079,7 +1096,7 @@ function applyTheme(id, runtime) {
 				));
 		}
 
-		function AuraStudio({ sessionId, locked, onClose, runtime }) {
+		function AuraStudio({ sessionId, locked, onClose, onRecipeChange, runtime }) {
 			const [tab, setTab] = useState("workflow");
  useEffect(() => { const previous=document.activeElement; const dialog=document.querySelector('.aura-studio'); const focusable=()=>Array.from(dialog?.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href]') ?? []).filter(el=>el.getClientRects().length); focusable()[0]?.focus(); const trap=e=>{if(e.key!=="Tab")return;const list=focusable();const first=list[0],last=list[list.length-1];if(e.shiftKey && document.activeElement===first){e.preventDefault();last?.focus()}else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first?.focus()}};dialog?.addEventListener('keydown',trap);return()=>{dialog?.removeEventListener('keydown',trap);previous?.focus?.()};}, []);
 			const [recipe, setRecipe] = useState(() => readRecipe(sessionId));
@@ -1186,7 +1203,8 @@ function applyTheme(id, runtime) {
 			useEffect(() => {
 				try { window.localStorage.setItem(recipeKey(sessionId), JSON.stringify(recipe)); }
 				catch (_) { setNotice("Local draft storage is unavailable. Export this recipe to keep it."); }
-			}, [recipe, sessionId]);
+				onRecipeChange?.(recipe);
+			}, [recipe, sessionId, onRecipeChange]);
 			useEffect(() => { applyTheme(themeId, runtime.theme); }, [themeId]);
 			useEffect(() => { applyVisualSettings(visual); }, [visual]);
 
@@ -1302,18 +1320,23 @@ function applyTheme(id, runtime) {
 					r("strong", null, "Agent chain"),
 					r("span", { className: "aura-studio__muted" }, connecting ? "Choose an In port to connect this stage. The remaining chain reconnects automatically." : "Drag cards to reorder, or drag an Out port to an In port. Click ports for keyboard access. Links form one sequential pipeline.")
 				),
-				r("div", { className: "aura-graph", role: "list", "aria-label": "Editable agent chain" }, chain.map((node, i) => r("div", { key: node.id, className: "aura-graph__step" },
-					r("div", { className: "aura-graph__node", role: "listitem", draggable: !locked, "aria-disabled": locked ? "true" : "false", onDragStart: e => e.dataTransfer.setData("text/plain", node.id), onDragOver: e => { if (!locked) e.preventDefault(); }, onDrop: e => { e.preventDefault(); moveNode(e.dataTransfer.getData("text/plain"), node.id); } },
-						r("small", null, `${String(i + 1).padStart(2, "0")} · ${node.data.reasoning_effort} effort`),
-						r("strong", null, node.data.role),
-                        r("div", {className:"aura-ports"},
-                            r("button",{type:"button",disabled:locked || sending,"aria-label":`Connect into ${node.data.role}`,onClick:()=>connectTo(node.id),onDragOver:e=>{e.preventDefault();e.stopPropagation();},onDrop:e=>{e.preventDefault();e.stopPropagation();connectTo(node.id,e.dataTransfer.getData('application/x-aura-port'));}},"○ In"),
-                            r("button",{type:"button",disabled:locked || sending,draggable:!locked && !sending,"aria-label":`Connect from ${node.data.role}`,"aria-pressed":connecting===node.id,onClick:()=>setConnecting(connecting===node.id?null:node.id),onDragStart:e=>{e.stopPropagation();e.dataTransfer.setData('application/x-aura-port',node.id);setConnecting(node.id);}},"Out ○")),
-						r("small", null, AURA_ROLE_HELP[node.data.role] || "Custom stage"),
- r("span", {className:"aura-model-badge"}, node.data.model ? `${node.data.model.provider} / ${node.data.model.id} · ${node.data.model_source === "auto" ? "auto" : "manual"}` : "Waiting for models"),
-						r("div", { className: "aura-graph__order" }, button("←", () => shiftNode(node.id, -1), { disabled: locked || i === 0, "aria-label": `Move ${node.data.role} left` }), button("→", () => shiftNode(node.id, 1), { disabled: locked || i === chain.length - 1, "aria-label": `Move ${node.data.role} right` }), !AURA_ROLES.includes(node.data.role) ? button("Remove", () => removeStage(node.id), { disabled: locked, "aria-label": `Remove ${node.data.role}` }) : null)
-					), i < chain.length - 1 ? r("span", { className: "aura-graph__connector", "aria-hidden": "true" }, "→") : null
-				))),
+				r("div", { className: "aura-graph", role: "list", "aria-label": "Editable agent chain topology" }, chain.map((node, i) => {
+					const route = node.data.model ? `${node.data.model.provider} / ${node.data.model.id}` : "Model unassigned";
+					const stageState = locked ? "locked" : connecting === node.id ? "source" : "ready";
+					const stateLabel = stageState === "source" ? "link source" : stageState;
+					return r(React.Fragment, { key: node.id },
+						r("div", { className: "aura-graph__step" },
+							r("div", { className: "aura-graph__node", role: "listitem", draggable: !locked, "aria-disabled": locked ? "true" : "false", "data-stage-state": stageState, "aria-label": `${String(i + 1).padStart(2, "0")} ${node.data.role}; ${route}; ${stateLabel}`, onDragStart: e => e.dataTransfer.setData("text/plain", node.id), onDragOver: e => { if (!locked) e.preventDefault(); }, onDrop: e => { e.preventDefault(); moveNode(e.dataTransfer.getData("text/plain"), node.id); } },
+								r("div", { className: "aura-graph__head" }, r("span", { className: "aura-graph__index" }, `${String(i + 1).padStart(2, "0")} · ${node.data.reasoning_effort} effort`), r("span", { className: "aura-graph__state", "aria-live": "polite" }, stateLabel)),
+								r("strong", null, node.data.role),
+								r("div", { className: "aura-ports" }, r("button", { type: "button", disabled: locked || sending, "aria-label": `Connect into ${node.data.role}`, onClick: () => connectTo(node.id), onDragOver: e => { e.preventDefault(); e.stopPropagation(); }, onDrop: e => { e.preventDefault(); e.stopPropagation(); connectTo(node.id, e.dataTransfer.getData("application/x-aura-port")); } }, "○ In"), r("button", { type: "button", disabled: locked || sending, draggable: !locked && !sending, "aria-label": `Connect from ${node.data.role}`, "aria-pressed": connecting === node.id, onClick: () => setConnecting(connecting === node.id ? null : node.id), onDragStart: e => { e.stopPropagation(); e.dataTransfer.setData("application/x-aura-port", node.id); setConnecting(node.id); } }, "Out ○")),
+								r("small", null, AURA_ROLE_HELP[node.data.role] || "Custom stage"),
+								r("span", { className: "aura-graph__route", title: route }, `${route} · ${node.data.model_source === "auto" ? "auto" : "manual"}`),
+								r("div", { className: "aura-graph__order" }, button("←", () => shiftNode(node.id, -1), { disabled: locked || i === 0, "aria-label": `Move ${node.data.role} left` }), button("→", () => shiftNode(node.id, 1), { disabled: locked || i === chain.length - 1, "aria-label": `Move ${node.data.role} right` }), !AURA_ROLES.includes(node.data.role) ? button("Remove", () => removeStage(node.id), { disabled: locked, "aria-label": `Remove ${node.data.role}` }) : null)
+							)
+						), i < chain.length - 1 ? r("span", { className: "aura-graph__connector aura-graph__connector--linked", "aria-hidden": "true" }) : null
+					);
+				})),
 				r("section", { className: "aura-stage-adder", "aria-label": "Add pipeline stage" },
 					r("h3", null, "Add a stage"),
 					r("p", { className: "aura-studio__muted" }, "Insert a custom stage into the connected pipeline. It can be dragged later, and will be routed only when you send this workflow."),
@@ -1658,6 +1681,7 @@ function applyTheme(id, runtime) {
 			function AuraDock({ useSessions, t }) {
 				const [open, setOpenState] = useState(readOpen);
 				const [studioOpen, setStudioOpen] = useState(false);
+				const [recipe, setRecipe] = useState(() => readRecipe());
 
 				const setOpen = useCallback((value) => {
 					setOpenState(value);
@@ -1677,6 +1701,7 @@ function applyTheme(id, runtime) {
 				const current = useSessions((s) => s.current);
 				const subagentsByParent = useSessions((s) => s.subagentsByParent);
 				const jobsBySession = useSessions((s) => s.jobsBySession);
+				useEffect(() => { setRecipe(readRecipe(current)); }, [current]);
 
 				const nodes = useMemo(
 					() => buildWorkflow(byId, current, subagentsByParent),
@@ -1719,10 +1744,10 @@ function applyTheme(id, runtime) {
 				}
 
 				return r("div", { className: "aura-dock aura-dock--open", "aria-label": t("dock.label") },
-					r(WorkflowPanel, { nodes, t }),
+					r(WorkflowPanel, { nodes, recipe, onOpenStudio: () => setStudioOpen(true), t }),
 					r(ActivityPanel, { jobs, skills, skillsPhase: phase, taskTitle: byId?.[current]?.title ?? byId?.[current]?.displayTitle, retrySkills: () => loadSkills(current), t }),
 					r("button", { type: "button", className: "aura-studio-launch", onClick: () => setStudioOpen(true) }, "Open Aura Studio · recipes, memory, design →"),
-					studioOpen ? r(AuraStudio, { key: String(current ?? "new"), sessionId: current, runtime: ctx, locked: live > 0, onClose: () => setStudioOpen(false) }) : null,
+					studioOpen ? r(AuraStudio, { key: String(current ?? "new"), sessionId: current, runtime: ctx, locked: live > 0, onClose: () => setStudioOpen(false), onRecipeChange: setRecipe }) : null,
 					r("button", {
 						type: "button",
 						className: "aura-fab",

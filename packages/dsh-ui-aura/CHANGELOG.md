@@ -1,3 +1,21 @@
+# Aura Studio 2.0.1 — live workflow topology
+
+## Added
+
+- Agent Workflow dock topology backed by the persisted recipe, showing every stage's selected provider and model instead of generic idle records.
+- Live stage mapping from native workflow phase data, so unrelated historical subagents cannot be represented as current work.
+- Immediate Studio-to-dock synchronization for route, model, ordering, custom-stage and sequential-edge changes.
+- State-aware workflow cards with keyboard-accessible ports, explicit link-source/ready/locked states and visible sequential connectors.
+
+## Verified locally
+
+- The live dock and editable Aura Studio topology were exercised against a local Harness session.
+- Syntax check and the package test suite passed.
+
+## Deliberate limits
+
+The editor remains a connected sequential pipeline, not an arbitrary branching DAG. Model routes are configuration; provider availability, quotas, billing and native permissions remain owned by Harness.
+
 # Aura Studio 2.0 — local release
 
 ## Added

@@ -1,4 +1,4 @@
-# DeepSeek Harness Aura 2.0.0
+# DeepSeek Harness Aura 2.0.1
 
 Aura adds a visual agent-workflow studio, a shared source/attachment shelf, connected-provider model routing, and eight offline whole-interface themes to DeepSeek Harness.
 
